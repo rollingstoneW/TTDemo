@@ -8,6 +8,7 @@
 
 #import "TTToastViewController.h"
 #import "TTKit.h"
+#import "YYCategoriesMacro.h"
 
 @interface TTToastViewController ()
 

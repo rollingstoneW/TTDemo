@@ -9,7 +9,6 @@
 #import "TTFuncThrottleViewController.h"
 #import "TTFuncThrottle.h"
 #import "TTKit.h"
-#import "YYCategoryImport.h"
 
 @interface TTFuncThrottleViewController ()
 

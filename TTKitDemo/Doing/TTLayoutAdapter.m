@@ -7,7 +7,6 @@
 //
 
 #import "TTLayoutAdapter.h"
-#import "YYCategoryImport.h"
 #import <objc/runtime.h>
 
 static CGFloat TTLayoutScreenWidth = 0;

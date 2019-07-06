@@ -16,7 +16,6 @@
 #import "TTSafeViewController.h"
 #import "TTCycleBannerViewController.h"
 #import "TTURLFactory.h"
-#import "YYCategoryImport.h"
 #import <Masonry.h>
 #import "TTFuncThrottleViewController.h"
 #import "TTXIBAdapterViewController.h"

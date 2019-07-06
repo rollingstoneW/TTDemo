@@ -7,7 +7,6 @@
 //
 
 #import "TTNetworkTask.h"
-#import "YYCategoryImport.h"
 #import "TTNetworkTask+Private.h"
 #import <objc/runtime.h>
 

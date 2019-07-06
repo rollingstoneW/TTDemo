@@ -9,8 +9,40 @@
 #ifndef TTKitDemo_pch
 #define TTKitDemo_pch
 
-#import <Masnory.h>
+#import <Masonry.h>
 #import <TTKit.h>
+
+#import "YYCategoriesMacro.h"
+#import "NSObject+YYAdd.h"
+#import "NSObject+YYAddForKVO.h"
+#import "NSObject+YYAddForARC.h"
+#import "NSData+YYAdd.h"
+#import "NSString+YYAdd.h"
+#import "NSArray+YYAdd.h"
+#import "NSDictionary+YYAdd.h"
+#import "NSDate+YYAdd.h"
+#import "NSNumber+YYAdd.h"
+#import "NSNotificationCenter+YYAdd.h"
+#import "NSKeyedUnarchiver+YYAdd.h"
+#import "NSTimer+YYAdd.h"
+#import "NSBundle+YYAdd.h"
+#import "NSThread+YYAdd.h"
+#import "UIColor+YYAdd.h"
+#import "UIImage+YYAdd.h"
+#import "UIControl+YYAdd.h"
+#import "UIBarButtonItem+YYAdd.h"
+#import "UIGestureRecognizer+YYAdd.h"
+#import "UIView+YYAdd.h"
+#import "UIScrollView+YYAdd.h"
+#import "UITableView+YYAdd.h"
+#import "UITextField+YYAdd.h"
+#import "UIScreen+YYAdd.h"
+#import "UIDevice+YYAdd.h"
+#import "UIApplication+YYAdd.h"
+#import "UIFont+YYAdd.h"
+#import "UIBezierPath+YYAdd.h"
+#import "CALayer+YYAdd.h"
+#import "YYCGUtilities.h"
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

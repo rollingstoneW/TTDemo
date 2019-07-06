@@ -12,7 +12,6 @@
 #import "TTNetworkTask.h"
 #import "TTNetworkTask+Private.h"
 #import "TTMacros.h"
-#import "YYCategoryImport.h"
 #import "NSString+TTUtil.h"
 
 @interface TTNetworkCacheData : NSObject <NSCoding>
