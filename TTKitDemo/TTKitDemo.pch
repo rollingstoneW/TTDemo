@@ -1,0 +1,18 @@
+//
+//  TTKitDemo.pch
+//  TTKitDemo
+//
+//  Created by 滚石 on 2019/7/6.
+//  Copyright © 2019年 TTKit. All rights reserved.
+//
+
+#ifndef TTKitDemo_pch
+#define TTKitDemo_pch
+
+#import <Masnory.h>
+#import <TTKit.h>
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* TTKitDemo_pch */

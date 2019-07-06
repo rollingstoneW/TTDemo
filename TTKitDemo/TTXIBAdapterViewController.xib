@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TTXIBAdapterViewController">
+            <connections>
+                <outlet property="customAdaptLine" destination="xox-JJ-HvJ" id="Ca1-RL-d3i"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vb5-My-mTW">
+                    <rect key="frame" x="57" y="353" width="300" height="200"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="原尺寸300*200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9a-DR-8wh">
+                            <rect key="frame" x="8" y="8" width="108" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原18号字体" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9yK-fL-ch6">
+                            <rect key="frame" x="106" y="41" width="88" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zb3-ID-dGB">
+                            <rect key="frame" x="0.0" y="143" width="300" height="1"/>
+                            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="FKn-uz-BKe"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="tt_borderWith1PX" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xox-JJ-HvJ">
+                            <rect key="frame" x="0.0" y="199" width="300" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.56558893200000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" placeholder="YES" id="RyK-Be-Ma7"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="100"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自定义分割线,原高度1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eo5-kv-4Kj">
+                            <rect key="frame" x="65.5" y="174" width="169" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自适应1像素分割线" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgO-ac-9cx">
+                            <rect key="frame" x="76.5" y="122" width="147" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="xox-JJ-HvJ" secondAttribute="bottom" id="1Ik-5O-2Xb"/>
+                        <constraint firstItem="tgO-ac-9cx" firstAttribute="top" secondItem="9yK-fL-ch6" secondAttribute="bottom" constant="60" id="1ag-p7-A7F"/>
+                        <constraint firstItem="Eo5-kv-4Kj" firstAttribute="centerX" secondItem="vb5-My-mTW" secondAttribute="centerX" id="6uu-t4-ij5"/>
+                        <constraint firstAttribute="trailing" secondItem="xox-JJ-HvJ" secondAttribute="trailing" id="FFM-2h-TBY"/>
+                        <constraint firstAttribute="bottom" secondItem="zb3-ID-dGB" secondAttribute="bottom" constant="56" id="Kv2-jp-IAK"/>
+                        <constraint firstAttribute="trailing" secondItem="zb3-ID-dGB" secondAttribute="trailing" id="L57-at-SBW"/>
+                        <constraint firstItem="9yK-fL-ch6" firstAttribute="centerX" secondItem="vb5-My-mTW" secondAttribute="centerX" id="OjD-wE-hUE"/>
+                        <constraint firstAttribute="width" constant="300" id="Pq1-pA-qGs"/>
+                        <constraint firstAttribute="bottom" secondItem="Eo5-kv-4Kj" secondAttribute="bottom" constant="5" id="e1H-0k-MwR">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </constraint>
+                        <constraint firstItem="xox-JJ-HvJ" firstAttribute="leading" secondItem="vb5-My-mTW" secondAttribute="leading" id="ebT-yT-w1o"/>
+                        <constraint firstItem="tgO-ac-9cx" firstAttribute="centerX" secondItem="vb5-My-mTW" secondAttribute="centerX" id="euO-Hf-xUA"/>
+                        <constraint firstItem="9yK-fL-ch6" firstAttribute="top" secondItem="vb5-My-mTW" secondAttribute="top" constant="41" id="hN5-LD-Nrg"/>
+                        <constraint firstAttribute="height" constant="200" id="phq-kd-njI">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </constraint>
+                        <constraint firstItem="zb3-ID-dGB" firstAttribute="leading" secondItem="vb5-My-mTW" secondAttribute="leading" id="yAq-kn-rMu"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsType">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tt_cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="tt_borderWith1PX" value="NO"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tt_borderColorHex" value="f5f5f5"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tt_backgroundColorHex" value="45b7ff"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tt_borderWidth">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tt_adaptsOption">
+                            <integer key="value" value="7"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vb5-My-mTW" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="5kQ-3x-GqM"/>
+                <constraint firstItem="vb5-My-mTW" firstAttribute="centerY" secondItem="Q5M-cg-NOt" secondAttribute="centerY" id="hks-22-lr5"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="144.92753623188406" y="35.491071428571423"/>
+        </view>
+    </objects>
+</document>
