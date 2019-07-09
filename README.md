@@ -1,2 +1,2 @@
-# TTKit
-TTKit基础库示例Demo
+# TTDemo
+TTRabbit基础库示例Demo
