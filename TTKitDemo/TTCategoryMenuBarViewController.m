@@ -13,6 +13,7 @@
 #import "TTKit.h"
 #import "TTCombineDelegateProxy.h"
 #import "TTCategoryMenuBarOptionViewController.h"
+#import "TTCategoryMenuBarOptionView2Controller.h"
 
 @interface TTCategoryMenuBarViewController () <TTCategoryMenuBarDelegate, TTCategoryMenuBarOptionViewDelegate>
 
@@ -112,10 +113,14 @@
         NSMutableArray *optionArr = [NSMutableArray array];
         for (NSInteger i = 0; i < 5; i++) {
             TTCategoryMenuBarListOptionItem *option = [[TTCategoryMenuBarListOptionItem alloc] init];
+            option.shouldSelectsTitleWhenChildrenAllSelected = YES;
             option.title = [NSString stringWithFormat:@"元素%ld", i];
             option.extraData = @(i).stringValue;
             option.childAllowsMultipleSelection = YES;
             option.optionRowHeight = 35;
+            if (i == 0) {
+                option.isSelectAll = YES;
+            }
             if (i == 5) {
                 option.isSelected = YES;
             }
@@ -123,7 +128,7 @@
 
             NSMutableArray *childOptions = [NSMutableArray array];
             option.childOptions = childOptions;
-            for (NSInteger j = 0; j < 10; j++) {
+            for (NSInteger j = 0; j < 5; j++) {
                 TTCategoryMenuBarListOptionChildItem *child = [[TTCategoryMenuBarListOptionChildItem alloc] init];
                 child.title = [NSString stringWithFormat:@"我是一个很长很长很长很长很长很长的元素%ld-%ld", i, j];
                 child.extraData = @(j).stringValue;
@@ -153,6 +158,7 @@
         NSMutableArray *optionArr = [NSMutableArray array];
         for (NSInteger i = 0; i < 5; i++) {
             TTCategoryMenuBarListOptionItem *option = [[TTCategoryMenuBarListOptionItem alloc] init];
+            option.shouldSelectsTitleWhenChildrenAllSelected = YES;
             option.title = [NSString stringWithFormat:@"元素%ld", i];
             option.extraData = @(i).stringValue;
             option.optionRowHeight = 35;
@@ -232,7 +238,7 @@
         make.left.right.equalTo(self.view);
     }];
 
-    [self.dataArray addObjectsFromArray:@[@"选项列表单独使用"]];
+    [self.dataArray addObjectsFromArray:@[@"选项列表单独使用", @"双排列表"]];
 }
 
 - (UIEdgeInsets)subviewInsets {
@@ -257,6 +263,10 @@
 - (void)sel0 {
     [self presentViewController:[[TTNavigationController alloc] initWithRootViewController:[TTCategoryMenuBarOptionViewController new]] animated:YES completion:nil];
 //    [self.navigationController pushViewController:[TTCategoryMenuBarOptionViewController new] animated:YES];
+}
+
+- (void)sel1 {
+    [self.navigationController pushViewController:[TTCategoryMenuBarOptionView2Controller new] animated:YES];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didResetCategory:(NSInteger)category {
