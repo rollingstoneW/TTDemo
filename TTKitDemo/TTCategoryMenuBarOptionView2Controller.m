@@ -32,7 +32,8 @@
         option.title = [NSString stringWithFormat:@"分组%ld", i];
         option.extraData = @(i).stringValue; // 可以用id
         option.childAllowsMultipleSelection = YES; // 允许多选
-        option.shouldSelectsTitleWhenChildrenAllSelected = YES; // 子选项都选中时，展示父选项选中的标题（变色）
+//        option.shouldSelectsTitleWhenChildrenAllSelected = YES; // 子选项都选中时，展示父选项选中的标题（变色）
+        option.shouldSelectsTitleWhenSelectsChild = YES; // 只要选中一个子选项，展示父选项选中的标题（变色）
         if (i == 0) {
             option.title = @"全部";
             option.isSelectAll = YES; // 设置为全选选项
@@ -43,7 +44,7 @@
         // 子选项
         NSMutableArray *childOptions = [NSMutableArray array];
         option.childOptions = childOptions;
-        for (NSInteger j = 0; j < 10; j++) {
+        for (NSInteger j = 0; j < (i == 0 ? 1 : 10); j++) {
             TTCategoryMenuBarListOptionChildItem *child = [[TTCategoryMenuBarListOptionChildItem alloc] init];
             child.title = [NSString stringWithFormat:@"测试%ld-%ld", i, j];
             child.extraData = @(j).stringValue;
@@ -53,7 +54,7 @@
             if (j == 0) {
                 child.title = @"全部";
                 child.isSelectAll = YES; // 设置为全选选项
-                child.unselectsOthersWhenSelected = YES;
+//                child.unselectsOthersWhenSelected = YES;
             }
 //            if (cityModel.isSelected) {
 //                child.isSelected = YES; // 设置选中效果
