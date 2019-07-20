@@ -27,7 +27,7 @@
 - (void)sel0 {
     [NSBundle tt_setAlternateIconName:nil completionHandler:^(NSError * _Nullable error) {
         if (error) {
-            [self showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
+            [self tt_showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
         }
     }];
 }
@@ -35,7 +35,7 @@
 - (void)sel1 {
     [NSBundle tt_setAlternateIconName:[NSBundle tt_alternateIconNames][0] completionHandler:^(NSError * _Nullable error) {
         if (error) {
-            [self showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
+            [self tt_showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
         }
     }];
 }
@@ -43,7 +43,7 @@
 - (void)sel2 {
     [NSBundle tt_setAlternateIconName:[NSBundle tt_alternateIconNames][1] completionHandler:^(NSError * _Nullable error) {
         if (error) {
-            [self showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
+            [self tt_showOKAlertWithTitle:error.localizedDescription message:nil handler:nil];
         }
     }];
 }

@@ -78,7 +78,7 @@
 //}
 //- (void)loginWithWX:(void(^)(NSString *))complete{
 //    if (![WXApi isWXAppInstalled]) {
-//        [self showAToast:noWeiXin];
+//        [self tt_showAToast:noWeiXin];
 //        return;
 //    }
 //    NSString *md5Cuid = [TTKitCommunicationTool md5WithEncodiong:NSUTF8StringEncoding string:[[APPInfoManager sharedInstance] cuid]];
@@ -110,7 +110,7 @@
 //    shareText = [shareText stringByAppendingString:weiboOfficialWeiboNameAndLinkString];
 //
 //    if (_sinaweibo.isAuthValid) {
-//        [self showAToast:@"正在分享到微博"];
+//        [self tt_showAToast:@"正在分享到微博"];
 //        [self sendMsg2Weibo];
 //    } else {
 //        [_sinaweibo logIn];
@@ -121,7 +121,7 @@
 //
 //- (void)shareQQWithData:(TTShareData *)shareEntity QQType:(ShareTencentType)type completion:(TTShareCompleteBlock)completeBlock{
 //    if (![TencentOAuth iphoneQQInstalled]) {
-//        [self showAToast:noQQ];
+//        [self tt_showAToast:noQQ];
 //        return;
 //    }
 //
@@ -214,7 +214,7 @@
 //
 //    // 判断微信是否安装
 //    if (![WXApi isWXAppInstalled]) {
-//        [self showAToast:noWeiXin];
+//        [self tt_showAToast:noWeiXin];
 //        return;
 //    }
 //    // 微信好友音频分享暂时没有权限，所以改成网页消息分享
@@ -293,14 +293,14 @@
 //    }
 //}
 //- (void)tencentDidNotNetWork{
-//    [self showAToast:@"网络错误"];
+//    [self tt_showAToast:@"网络错误"];
 //}
 //- (void)tencentDidNotLogin:(BOOL)cancelled{
 //    [TTKitNlog logWithEventType:kEventTypeClick labe:LOGIN_BINDTHIRDPARTY_GET_TOKEN params:@{@"type" : @(1),@"result" : @(0)}];
 //    if (cancelled) {
-//        [self showAToast:@"您取消了授权"];
+//        [self tt_showAToast:@"您取消了授权"];
 //    }else{
-//        [self showAToast:@"授权失败"];
+//        [self tt_showAToast:@"授权失败"];
 //    }
 //}
 //- (void)onReq:(QQBaseReq *)req{
@@ -344,7 +344,7 @@
 //                [TTKitNlog logWithEventType:kEventTypeClick labe:LOGIN_BINDTHIRDPARTY_GET_TOKEN params:@{@"type" : @(2),@"result" : @(0)}];
 //            }
 //        }else{
-//            [self showAToast:@"授权失败"];
+//            [self tt_showAToast:@"授权失败"];
 //            [TTKitNlog logWithEventType:kEventTypeClick labe:LOGIN_BINDTHIRDPARTY_GET_TOKEN params:@{@"type" : @(2),@"result" : @(0)}];
 //        }
 //

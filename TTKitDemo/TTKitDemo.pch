@@ -12,7 +12,7 @@
 #import <Masonry.h>
 #import <TTKit.h>
 
-#import "YYCategoriesMacro.h"
+#import "YYKit.h"
 #import "NSObject+YYAdd.h"
 #import "NSObject+YYAddForKVO.h"
 #import "NSObject+YYAddForARC.h"

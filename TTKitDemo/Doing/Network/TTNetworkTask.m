@@ -8,90 +8,59 @@
 
 #import "TTNetworkTask.h"
 #import "TTNetworkTask+Private.h"
-#import <objc/runtime.h>
-
-@interface NSObject (Private)
-@property (nonatomic, strong) NSHashTable<TTNetworkTask *>* tt_relatedTasks;
-
-@end
-@implementation NSObject (TTNetworkTask)
-
-- (void)cancelNetworkTasks {
-    for (TTNetworkTask *task in self.tt_relatedTasks) {
-        [self cancelNetowrkTask:task];
-    }
-}
-
-- (void)cancelNetowrkTask:(TTNetworkTask *)task {
-    [task.task cancel];
-}
-
-- (void)cancelNetowrkTaskWithUrlString:(NSString *)url {
-    for (TTNetworkTask *task in self.tt_relatedTasks) {
-        if ([task.task.currentRequest.URL.absoluteString containsString:url]) {
-            [self cancelNetowrkTask:task];
-            [self.tt_relatedTasks removeObject:task];
-            return;
-        }
-    }
-}
-
-- (void)_addNetworkTask:(TTNetworkTask *)task {
-    if (!task) { return; }
-    if (!self.tt_relatedTasks) {
-        self.tt_relatedTasks = [NSHashTable weakObjectsHashTable];
-    }
-    [self.tt_relatedTasks addObject:task];
-}
-
-YYSYNTH_DYNAMIC_PROPERTY_OBJECT(tt_relatedTasks, setTt_relatedTasks, RETAIN_NONATOMIC, NSHashTable<TTNetworkTask *>*)
-
-@end
 
 @implementation TTNetworkTask
 
-- (instancetype)initWithTask:(NSURLSessionDataTask *)task {
+- (instancetype)init {
     if (self = [super init]) {
-        _task = task;
+        _timeoutInterval = 20;
     }
     return self;
 }
 
+- (float)priority {
+    return self.realTask.priority;
+}
+
 - (void)setPriority:(float)priority {
-    _priority = priority;
-    self.task.priority = priority;
+    self.realTask.priority = priority;
+}
+
+- (BOOL)canResume {
+    return _canResume && [self.realTask isKindOfClass:[NSURLSessionDownloadTask class]];
 }
 
 - (NSString *)originalUrl {
-    return self.task.originalRequest.URL.absoluteString;
+    return self.realTask.originalRequest.URL.absoluteString;
 }
 
 - (NSString *)identifier {
-    return @(self.task.taskIdentifier).stringValue ?: @"";
+    return @(self.realTask.taskIdentifier).stringValue ?: @"";
 }
 
 - (void)resume {
     if (self.shouldResume && !self.shouldResume(self)) {
-        [self.task cancel];
+        [self.realTask cancel];
         return;
     }
-    [self.task resume];
+    [self.realTask resume];
+    !self.didResume ?: self.didResume(self);
+}
+
+- (void)suspend {
+    [self.realTask suspend];
 }
 
 - (void)cancel {
-    [self.task cancel];
-}
-
-- (void)setAutoCancelDependency:(id<TTNetworkTaskDependency>)dependency {
-    [(NSObject *)dependency _addNetworkTask:self];
-}
-
-- (void)setAutoCancelWhenDependencyDealloced:(id)dependency {
-    [(NSObject *)dependency _addNetworkTask:self];
+    if (self.canResume && [self.realTask isKindOfClass:[NSURLSessionDownloadTask class]]) {
+        [((NSURLSessionDownloadTask *)self.realTask) cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+        }];
+    }
+    [self.realTask cancel];
 }
 
 - (void)dealloc {
-    if (self.task.state == NSURLSessionTaskStateRunning) {
+    if (self.realTask.state == NSURLSessionTaskStateRunning) {
         [self cancel];
     }
 }

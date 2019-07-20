@@ -58,9 +58,9 @@
 
     [self showCycleBanner];
 
-    [self addRightBarItemWithTitle:@"前一个" image:nil selector:@selector(scrollToPrevious)];
-    [self addRightBarItemWithTitle:@"后一个" image:nil selector:@selector(scrollToNext)];
-    [self addRightBarItemWithTitle:@"第0个" image:nil selector:@selector(scrollToFirst)];
+    [self tt_addRightBarItemWithTitle:@"前一个" image:nil selector:@selector(scrollToPrevious)];
+    [self tt_addRightBarItemWithTitle:@"后一个" image:nil selector:@selector(scrollToNext)];
+    [self tt_addRightBarItemWithTitle:@"第0个" image:nil selector:@selector(scrollToFirst)];
 }
 
 - (void)showCycleBanner {

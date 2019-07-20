@@ -64,11 +64,11 @@
 }
 
 - (void)sel5 {
-    [self showTextToast:@"请调大音量"];
+    [self tt_showTextToast:@"请调大音量"];
 }
 
 - (void)sel6 {
-    [self hideToasts];
+    [self tt_hideToasts];
 }
 
 TTSYNTH_DYNAMIC_PROPERTY_BOOLVALUE(test, setTest, NO)

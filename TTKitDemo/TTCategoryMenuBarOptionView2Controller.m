@@ -80,7 +80,7 @@
         [self appendValue:value option:option];
         [values addObject:value];
     }
-    [self showTextToast:[NSString stringWithFormat:@"选中了%@", [values componentsJoinedByString:@","]]];
+    [self tt_showTextToast:[NSString stringWithFormat:@"选中了%@", [values componentsJoinedByString:@","]]];
 }
 
 - (void)appendValue:(NSMutableString *)value option:(TTCategoryMenuBarOptionItem *)option {
