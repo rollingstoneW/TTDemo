@@ -214,7 +214,7 @@
 
 - (NSMutableURLRequest *)requestWithUrl:(NSString *)url method:(NSString *)method params:(NSDictionary *)params completion:(TTNetworkCompletion)completion {
     if (!url.length) {
-        kSafeBlock(completion, nil, nil, [NSError errorWithDomain:NSURLErrorDomain
+        TTSafeBlock(completion, nil, nil, [NSError errorWithDomain:NSURLErrorDomain
                                                              code:0
                                                          userInfo:@{NSLocalizedDescriptionKey:@"链接不能为空"}]);
         return nil;
@@ -261,7 +261,7 @@
         if (data) {
             task.isFromCache = YES;
             task.response = data;
-            kSafeBlock(task.completion, task, task.response, nil);
+            TTSafeBlock(task.completion, task, task.response, nil);
             if (task.cachePolicy == TTNetworkTaskCachePolicyLocal) {
                 return NO;
             }
@@ -287,7 +287,7 @@
         [self.delegate didFinishTask:task];
     }
     if (error) {
-        kSafeBlock(completion, task, nil, error);
+        TTSafeBlock(completion, task, nil, error);
     } else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(parseTask:)]) {
             error = [self.delegate parseTask:task];
@@ -295,7 +295,7 @@
         if (!error) {
             [self cacheTaskIfNeeded:task];
         }
-        kSafeBlock(completion, task, response, error);
+        TTSafeBlock(completion, task, response, error);
     }
     self.tasks[task.identifier] = nil;
 }

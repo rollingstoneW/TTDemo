@@ -7,8 +7,8 @@ target "TTKitDemo" do
 #  pod 'TTCycleBanner', :path => '../TTCycleBanner'
 #  pod 'TTCombineDelegateProxy', :path => '../TTCycleBanner'
 
- #pod 'TTRabbit', :path => 'TTKit'
-  pod 'TTRabbit', :git => 'https://github.com/rollingstoneW/TTKit.git'
+ pod 'TTRabbit', :path => '../TTKit'
+#  pod 'TTRabbit', :git => 'https://github.com/rollingstoneW/TTKit.git'
   pod 'TTCycleBanner'
   pod 'TTCombineDelegateProxy'
   pod 'Masonry'
@@ -20,6 +20,7 @@ target "TTKitDemo" do
   pod 'MBProgressHUD'
   pod 'FLEX'
   pod 'BlocksKit'
+#  pod 'sentry'
 
 end 
 

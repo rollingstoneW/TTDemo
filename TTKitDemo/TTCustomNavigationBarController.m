@@ -11,6 +11,7 @@
 #import "TTAlphaNavigationBar.h"
 #import "TTLargeTitleNavigationBar.h"
 #import <Masonry.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface TTCustomNavigationBarController ()
 

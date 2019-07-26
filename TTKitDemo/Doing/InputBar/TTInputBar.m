@@ -145,8 +145,8 @@ static const CGFloat TextViewRight = 87;
 #pragma mark - Private
 
 - (void)sendAction {
-    kSafeBlock(self.sendTextBlock, self);
-    kSafePerformSelector(self.delegate, @selector(inputBarSendText:), self);
+    TTSafeBlock(self.sendTextBlock, self);
+    TTSafePerformSelector(self.delegate, @selector(inputBarSendText:), self);
     [self dismiss];
 }
 
@@ -187,7 +187,7 @@ static const CGFloat TextViewRight = 87;
                          }
                      } completion:^(BOOL finished) {
                          if (!isShow) {
-                             kSafeBlock(self.dismissCompletion);
+                             TTSafeBlock(self.dismissCompletion);
                              [self unobserveKeyboard];
                          }
                      }];
@@ -256,8 +256,8 @@ static const CGFloat TextViewRight = 87;
     [self setupAttributedTextShouldSub:shouldSub];
     [self setupLengthLabel];
     self.sendButton.enabled = self.enablesSendAutomatically ? textView.text.length : YES;
-    kSafeBlock(self.didChangeTextBlock, self);
-    kSafePerformSelector(self.delegate, @selector(inputBarDidChangeText:), self);
+    TTSafeBlock(self.didChangeTextBlock, self);
+    TTSafePerformSelector(self.delegate, @selector(inputBarDidChangeText:), self);
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
@@ -289,12 +289,12 @@ static const CGFloat TextViewRight = 87;
 #pragma mark - Setter & Getter
 
 - (void)setMaxVisibleLines:(NSInteger)maxVisibleLines {
-    kSetterCondition(maxVisibleLines);
+    TTSetterCondition(maxVisibleLines);
     [self adjustFrame];
 }
 
 - (void)setMaxNumOfChars:(NSInteger)maxNumOfChars {
-    kSetterCondition(maxNumOfChars)
+    TTSetterCondition(maxNumOfChars)
     [self setupLengthLabel];
 }
 
@@ -307,7 +307,7 @@ static const CGFloat TextViewRight = 87;
     return self.textView.text;
 }
 
-kGetterObjectIMP(textView, [[UITextView alloc] init]; {
+TTGetterObjectIMP(textView, [[UITextView alloc] init]; {
     _textView.delegate = self;
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.showsVerticalScrollIndicator = NO;
@@ -328,13 +328,13 @@ kGetterObjectIMP(textView, [[UITextView alloc] init]; {
 //    }];
 })
 
-kGetterObjectIMP(sendButton, [UIButton buttonWithImage:[UIImage imageNamed:@"tt_inputBar_done"]
+TTGetterObjectIMP(sendButton, [UIButton buttonWithImage:[UIImage imageNamed:@"tt_inputBar_done"]
                                                 target:self
                                               selector:@selector(sendAction)]; {
     _sendButton.enabled = !self.enablesSendAutomatically;
 })
 
-kGetterObjectIMP(lengthLabel, [UILabel labelWithFont:kTTFont_12 textColor:nil]; {
+TTGetterObjectIMP(lengthLabel, [UILabel labelWithFont:kTTFont_12 textColor:nil]; {
     [self setupLengthLabel];
 });
 

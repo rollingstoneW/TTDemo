@@ -16,25 +16,25 @@
 
 @implementation NSString (TTURLFactory)
 
-- (NSString *)urlStringByPrependingDefaultBaseUrl {
-    return [self urlStringByPrependingBaseUrl:[TTNetworkManager sharedInstance].delegate.baseUrl];
+- (NSString *)tt_urlStringByPrependingDefaultBaseUrl {
+    return [self tt_urlStringByPrependingBaseUrl:[TTNetworkManager sharedInstance].delegate.baseUrl];
 }
 
-- (NSString *)urlStringByPrependingBaseUrl:(NSString *)baseUrl {
+- (NSString *)tt_urlStringByPrependingBaseUrl:(NSString *)baseUrl {
     if (!baseUrl.length || [self hasPrefix:baseUrl]) { return self; }
-    baseUrl = [baseUrl stringByDeletingSuffix:@"/"];
-    NSString *urlString = [self stringByDeletingPrefix:@"/"];
+    baseUrl = [baseUrl tt_stringByDeletingSuffix:@"/"];
+    NSString *urlString = [self tt_stringByDeletingPrefix:@"/"];
     return [baseUrl stringByAppendingFormat:@"/%@", urlString];
 }
 
-- (NSString *)urlStringByAppendingDefaultParams {
-    return [self urlStringByAppendingParams:[TTNetworkManager sharedInstance].delegate.commonParams];
+- (NSString *)tt_urlStringByAppendingDefaultParams {
+    return [self tt_urlStringByAppendingParams:[TTNetworkManager sharedInstance].delegate.commonParams];
 }
 
-- (NSString *)urlStringByAppendingParams:(NSDictionary *)params {
-    NSString *urlString = [[self urlStringByPrependingDefaultBaseUrl] stringByDeletingSuffix:@"/"];
+- (NSString *)tt_urlStringByAppendingParams:(NSDictionary *)params {
+    NSString *urlString = [[self tt_urlStringByPrependingDefaultBaseUrl] tt_stringByDeletingSuffix:@"/"];
     if (![params isKindOfClass:[NSDictionary class]] || !params.count) { return urlString; }
-    return [urlString urlStringByAppendingQueries:params];
+    return [urlString tt_urlStringByAppendingQueries:params];
 }
 
 @end

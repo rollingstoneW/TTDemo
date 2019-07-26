@@ -14,7 +14,7 @@ static NSString *const BaseUrl = @"https://www.baidu.com";
 @implementation NetworkManager
 
 + (void)load {
-    [TTNetworkManager sharedInstance].delegate = [NetworkManager sharedInstance];
+//    [TTNetworkManager sharedInstance].delegate = [NetworkManager sharedInstance];
 }
 
 - (NSString *)baseUrl {

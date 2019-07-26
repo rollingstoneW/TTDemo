@@ -75,7 +75,7 @@ static const CGFloat CancelButtonHeight = 50;
         self.backgroundColor = kTTColor_Clear;
         self.containerView.top = self.bottom;
     } completion:^(BOOL finished) {
-        kSafeBlock(completion);
+        TTSafeBlock(completion);
     }];
 }
 
@@ -121,11 +121,11 @@ static const CGFloat CancelButtonHeight = 50;
     if (types.count == 0) {
         return;
     }
-    NSInteger iconCount = MIN(DeviceIsPad ? 5 : 3, types.count);
+    NSInteger iconCount = MIN(TTDeviceIsPad ? 5 : 3, types.count);
     CGFloat marginLeft = 42;
 
     CGFloat vGap = 12;
-    CGFloat iconWidth = MIN(kAdaptedWidth47(50), 60);
+    CGFloat iconWidth = MIN(TTAdaptedWidth47(50), 60);
     CGFloat hGap = (kScreenWidth - marginLeft * 2 - iconWidth * iconCount) / (iconCount - 1);
     CGFloat iconTitleHeight = 25;
     CGFloat iconHeight = iconWidth + 4 + iconTitleHeight;
@@ -233,7 +233,7 @@ static const CGFloat CancelButtonHeight = 50;
 }
 
 - (void)handleResultWithType:(TTShareItemType)type error:(NSError *)error {
-    kSafeBlock(self.completion, error, type);
+    TTSafeBlock(self.completion, error, type);
     if (!self.dismissWhenConfirm) {
         [self dismiss];
     }
@@ -284,7 +284,7 @@ static const CGFloat CancelButtonHeight = 50;
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithText:@"" font:kTTFont_18 textColor:kTTColor_33 textAlignment:NSTextAlignmentCenter numberOfLines:0];
+        _titleLabel = [UILabel labelWithText:@"" font:kTTFont_18 textColor:kTTColor_33 alignment:NSTextAlignmentCenter numberOfLines:0];
     }
     return _titleLabel;
 }
@@ -297,7 +297,7 @@ static const CGFloat CancelButtonHeight = 50;
         UIView *line = [UIView viewWithColor:kTTColor_f5];
         [_cancelButton addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.equalTo(_cancelButton);
+            make.top.left.right.equalTo(self.cancelButton);
             make.height.equalTo(@(kWidth_1px));
         }];
     }

@@ -270,11 +270,11 @@
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didResetCategory:(NSInteger)category {
-    [self showTextToast:[NSString stringWithFormat:@"重置了分类%ld", category]];
+    [self tt_showTextToast:[NSString stringWithFormat:@"重置了分类%ld", category]];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didSelectCategory:(NSInteger)category {
-    [self showTextToast:[NSString stringWithFormat:@"点击了分类%ld", category]];
+    [self tt_showTextToast:[NSString stringWithFormat:@"点击了分类%ld", category]];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didCommitCategoryOptions:(NSArray<TTCategoryMenuBarListOptionItem *> *)options atCategory:(NSInteger)category {
@@ -287,13 +287,23 @@
         [self appendValue:value option:option];
         [values addObject:value];
     }
-    [self showOKAlertWithTitle:[NSString stringWithFormat:@"选中了分类%ld里的%@", category, [values componentsJoinedByString:@","]] message:nil handler:nil];
+    [self tt_showOKAlertWithTitle:[NSString stringWithFormat:@"选中了分类%ld里的%@", category, [values componentsJoinedByString:@","]] message:nil handler:nil];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar willShowOptionView:(TTCategoryMenuBarOptionView *)optionView atCategory:(NSInteger)category {
     TTCombineDelegateProxy *proxy = [TTCombineDelegateProxy proxyWithPriorDelegate:menuBar secondaryDelegate:self];
     self.delegateProxy = proxy;
-    optionView.delegate = (id<TTCategoryMenuBarOptionViewDelegate>)proxy;;
+    optionView.delegate = (id<TTCategoryMenuBarOptionViewDelegate>)proxy;
+    if (category == menuBar.items.count - 1) {
+        return;
+    }
+    [optionView.doneButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@80);
+    }];
+    [optionView.resetButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@80);
+    }];
+    [optionView invalidateIntrinsicContentSize];
 }
 
 - (void)categoryBarOptionView:(TTCategoryMenuBarOptionView *)optionView selectedOptionsDidChange:(NSArray *)selectedOptions {
@@ -306,7 +316,7 @@
         [self appendValue:value option:option];
         [values addObject:value];
     }
-    [self showTextToast:[NSString stringWithFormat:@"选中了分类%@里的%@", optionView.categoryItem.title, [values componentsJoinedByString:@","]]];
+    [self tt_showTextToast:[NSString stringWithFormat:@"选中了分类%@里的%@", optionView.categoryItem.title, [values componentsJoinedByString:@","]]];
 }
 
 - (TTCategoryMenuBarOptionView *)categoryMenuBar:(TTCategoryMenuBar *)menuBar optionViewAtIndex:(NSInteger)index {

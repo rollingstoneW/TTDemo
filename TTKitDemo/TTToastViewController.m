@@ -42,7 +42,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *sel = self.dataArray[indexPath.row][@"sel"];
-    [self performSelector:NSSelectorFromString(sel)];
+    TTSuppressPerformSelectorLeakWarning([self performSelector:NSSelectorFromString(sel)];)
 }
 
 - (void)sel1 {

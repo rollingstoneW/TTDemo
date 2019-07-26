@@ -26,8 +26,25 @@
     self.window = window;
     
     [[TTNavigationBar appearance] setBackImage:[UIImage imageNamed:@"back"]];
+
+    [self test1];
+    [self test2];
     
     return YES;
+}
+
+- (void)test1 {
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+
+    });
+}
+
+- (void)test2 {
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+
+    });
 }
 
 
