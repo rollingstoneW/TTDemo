@@ -26,6 +26,8 @@
 #import <MJRefresh.h>
 #import "TTSectorProgressView.h"
 #import "TTFloatCircledDebugView.h"
+#import "TTNetworkManager.h"
+#import "TTURLFactory.h".
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
@@ -51,37 +53,37 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     [super viewDidLoad];
     
     
-    UILabel *label  = [UILabel labelWithFont:kTTFont_15 textColor:kTTColor_33];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.userInteractionEnabled = YES;
-    label.backgroundColor = [UIColor redColor];
-    [self.window addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.window);
-        make.size.mas_equalTo(CGSizeMake(200, 50));
-    }];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *path = [[UIApplication sharedApplication].cachesPath stringByAppendingPathComponent:@"test.js"];
-        NSString *downLoadUrl = @"https://desk-fd.zol-img.com.cn/t_s2880x1800c5/g2/M00/0A/08/ChMlWl0etgeIBDlZABHLgESTo1gAALjkAAAAAAAEcuY500.jpg";
-        TTNetworkTask *task = [[TTNetworkManager sharedManager] download:downLoadUrl destination:path shouldResume:YES progess:^(uint64_t totalBytes, uint64_t completedBytes) {
-            label.text = [NSString stringWithFormat:@"%lld/%lld", completedBytes, totalBytes];
-        } completion:^(TTNetworkTask *task, id responseObject, NSError *error) {
-            if (!error) {
-                [label removeFromSuperview];
-            }
-        }];
-        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
-            if (task.realTask.state == NSURLSessionTaskStateRunning) {
-                [task suspend];
-            } else {
-                [task resume];
-            }
-        }]];
-        [[TTNetworkManager sharedManager] loadCachedDownloadInfoFoTask:task completion:^(uint64_t totalBytes, uint64_t downloadedBytes) {
-            label.text = [NSString stringWithFormat:@"%lld/%lld", downloadedBytes, totalBytes];
-        }];
-    });
+//    UILabel *label  = [UILabel labelWithFont:kTTFont_15 textColor:kTTColor_33];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.userInteractionEnabled = YES;
+//    label.backgroundColor = [UIColor redColor];
+//    [self.view.window addSubview:label];
+//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self.view.window);
+//        make.size.mas_equalTo(CGSizeMake(200, 50));
+//    }];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        NSString *path = [[UIApplication sharedApplication].cachesPath stringByAppendingPathComponent:@"test.js"];
+//        NSString *downLoadUrl = @"https://desk-fd.zol-img.com.cn/t_s2880x1800c5/g2/M00/0A/08/ChMlWl0etgeIBDlZABHLgESTo1gAALjkAAAAAAAEcuY500.jpg";
+//        TTNetworkTask *task = [[TTNetworkManager sharedManager] download:downLoadUrl destination:path shouldResume:YES progess:^(uint64_t totalBytes, uint64_t completedBytes) {
+//            label.text = [NSString stringWithFormat:@"%lld/%lld", completedBytes, totalBytes];
+//        } completion:^(TTNetworkTask *task, id responseObject, NSError *error) {
+//            if (!error) {
+//                [label removeFromSuperview];
+//            }
+//        }];
+//        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+//            if (task.realTask.state == NSURLSessionTaskStateRunning) {
+//                [task suspend];
+//            } else {
+//                [task resume];
+//            }
+//        }]];
+//        [[TTNetworkManager sharedManager] loadCachedDownloadInfoFoTask:task completion:^(uint64_t totalBytes, uint64_t downloadedBytes) {
+//            label.text = [NSString stringWithFormat:@"%lld/%lld", downloadedBytes, totalBytes];
+//        }];
+//    });
     
     [self testButtonThrottle];
     

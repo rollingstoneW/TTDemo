@@ -487,7 +487,7 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.expanded = NO;
-    TTSafeBlock(self.actions[indexPath.item].handler, self.actions[indexPath.item - 1]);
+    TTSafeBlock(self.actions[indexPath.item].handler, self.actions[indexPath.item]);
 }
 
 - (UIEdgeInsets)activeAreaInset {

@@ -13,6 +13,7 @@
 #import "TTNetworkTask+Private.h"
 #import "TTMacros.h"
 #import "NSString+TTUtil.h"
+#import "TTURLFactory.h"
 
 NSString *const TTNetworkTaskDidStartNotification = @"TTNetworkTaskDidStartNotification";
 NSString *const TTNetworkTaskDidFinishNotification = @"TTNetworkTaskDidFinishNotification";

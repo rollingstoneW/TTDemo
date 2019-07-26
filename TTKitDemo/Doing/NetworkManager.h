@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "TTNetworkManager.h"
+#import "TTNetworkManager.h"
 
-//@interface NetworkManager : NSObject <TTNetworkManagerDelegate, TTSingleton>
-//
-//@end
+@interface NetworkManager : NSObject <TTNetworkManagerDelegate, TTSingleton>
+
+@end
