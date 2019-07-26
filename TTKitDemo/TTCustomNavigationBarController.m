@@ -67,7 +67,7 @@
 }
 
 - (void)buttonClicked:(UIButton *)button {
-    [self showOKAlertWithTitle:[NSString stringWithFormat:@"点击了按钮%ld", button.tag] message:nil handler:nil];
+    [self tt_showOKAlertWithTitle:[NSString stringWithFormat:@"点击了按钮%ld", button.tag] message:nil handler:nil];
 }
 
 - (void)loadCustomNavigationBar {

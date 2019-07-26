@@ -38,7 +38,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    CGRect firstItemFrame = [[self.tabBar.items.firstObject valueForKey:@"view"] frame];
+    CGRect firstItemFrame = [(UIView *)[self.tabBar.items.firstObject valueForKey:@"view"] frame];
     
     UHNewFeature *feature = [[UHNewFeature alloc] init];
     feature.targetFrame = [self.tabBar convertRect:firstItemFrame toView:self.view.window];

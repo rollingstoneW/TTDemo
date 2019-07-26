@@ -35,9 +35,6 @@
 		D93238C622D0AB28000A0905 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932389822D0AB24000A0905 /* SecondViewController.m */; };
 		D93238C722D0AB28000A0905 /* TTInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D932389D22D0AB24000A0905 /* TTInputBar.m */; };
 		D93238C822D0AB28000A0905 /* TTCalculate.js in Resources */ = {isa = PBXBuildFile; fileRef = D93238A022D0AB24000A0905 /* TTCalculate.js */; };
-		D93238C922D0AB28000A0905 /* TTNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238A222D0AB24000A0905 /* TTNetworkManager.m */; };
-		D93238CA22D0AB28000A0905 /* TTNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238A522D0AB24000A0905 /* TTNetworkTask.m */; };
-		D93238CB22D0AB28000A0905 /* TTURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238A822D0AB24000A0905 /* TTURLFactory.m */; };
 		D93238CC22D0AB28000A0905 /* TTShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238AC22D0AB24000A0905 /* TTShareManager.m */; };
 		D93238CD22D0AB28000A0905 /* TTShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238AD22D0AB24000A0905 /* TTShareData.m */; };
 		D93238CE22D0AB28000A0905 /* TTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238AF22D0AB24000A0905 /* TTShareView.m */; };
@@ -46,6 +43,10 @@
 		D93238D122D0AB28000A0905 /* TTCategoryMenuBarOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238B522D0AB27000A0905 /* TTCategoryMenuBarOptionViewController.m */; };
 		D93238D222D0AB28000A0905 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238B822D0AB28000A0905 /* TabBarController.m */; };
 		D93238DC22D0C94B000A0905 /* UIImageView+SDImageAutoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = D93238DA22D0C94A000A0905 /* UIImageView+SDImageAutoSize.m */; };
+		D9820B9922E352720047037E /* TTNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B8D22E352710047037E /* TTNetworkManager.m */; };
+		D9820B9A22E352720047037E /* TTNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9022E352720047037E /* TTNetworkTask.m */; };
+		D9820B9B22E352720047037E /* TTNetworkCancellable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9222E352720047037E /* TTNetworkCancellable.m */; };
+		D9820B9D22E352720047037E /* TTURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9822E352720047037E /* TTURLFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,13 +103,6 @@
 		D932389D22D0AB24000A0905 /* TTInputBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTInputBar.m; sourceTree = "<group>"; };
 		D932389E22D0AB24000A0905 /* TTInputBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInputBar.h; sourceTree = "<group>"; };
 		D93238A022D0AB24000A0905 /* TTCalculate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TTCalculate.js; sourceTree = "<group>"; };
-		D93238A222D0AB24000A0905 /* TTNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetworkManager.m; sourceTree = "<group>"; };
-		D93238A322D0AB24000A0905 /* TTNetworkTask+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTNetworkTask+Private.h"; sourceTree = "<group>"; };
-		D93238A422D0AB24000A0905 /* TTURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTURLFactory.h; sourceTree = "<group>"; };
-		D93238A522D0AB24000A0905 /* TTNetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetworkTask.m; sourceTree = "<group>"; };
-		D93238A622D0AB24000A0905 /* TTNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkManager.h; sourceTree = "<group>"; };
-		D93238A722D0AB24000A0905 /* TTNetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkTask.h; sourceTree = "<group>"; };
-		D93238A822D0AB24000A0905 /* TTURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLFactory.m; sourceTree = "<group>"; };
 		D93238AA22D0AB24000A0905 /* TTShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareData.h; sourceTree = "<group>"; };
 		D93238AB22D0AB24000A0905 /* TTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareView.h; sourceTree = "<group>"; };
 		D93238AC22D0AB24000A0905 /* TTShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareManager.m; sourceTree = "<group>"; };
@@ -126,6 +120,16 @@
 		D93238B822D0AB28000A0905 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		D93238DA22D0C94A000A0905 /* UIImageView+SDImageAutoSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SDImageAutoSize.m"; sourceTree = "<group>"; };
 		D93238DB22D0C94B000A0905 /* UIImageView+SDImageAutoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SDImageAutoSize.h"; sourceTree = "<group>"; };
+		D9820B8D22E352710047037E /* TTNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetworkManager.m; sourceTree = "<group>"; };
+		D9820B8E22E352720047037E /* TTNetworkTask+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTNetworkTask+Private.h"; sourceTree = "<group>"; };
+		D9820B8F22E352720047037E /* TTURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTURLFactory.h; sourceTree = "<group>"; };
+		D9820B9022E352720047037E /* TTNetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetworkTask.m; sourceTree = "<group>"; };
+		D9820B9222E352720047037E /* TTNetworkCancellable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetworkCancellable.m; sourceTree = "<group>"; };
+		D9820B9322E352720047037E /* TTNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkManager.h; sourceTree = "<group>"; };
+		D9820B9422E352720047037E /* TTNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetwork.h; sourceTree = "<group>"; };
+		D9820B9522E352720047037E /* TTNetworkCancellable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkCancellable.h; sourceTree = "<group>"; };
+		D9820B9722E352720047037E /* TTNetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkTask.h; sourceTree = "<group>"; };
+		D9820B9822E352720047037E /* TTURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLFactory.m; sourceTree = "<group>"; };
 		F21048E0759DF73BDE6E1BE4 /* Pods-TTKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-TTKitDemo/Pods-TTKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +264,7 @@
 			children = (
 				C131070822E01AEB007A945E /* TTFloatCircledDebugView.h */,
 				C131070922E01AEC007A945E /* TTFloatCircledDebugView.m */,
+				D9820B8C22E352710047037E /* Network */,
 				D93238DB22D0C94B000A0905 /* UIImageView+SDImageAutoSize.h */,
 				D93238DA22D0C94A000A0905 /* UIImageView+SDImageAutoSize.m */,
 				D932388822D0AB1E000A0905 /* NetworkManager.h */,
@@ -271,7 +276,6 @@
 				C190429622DD998300FA20A7 /* TTProgressView */,
 				D932389C22D0AB24000A0905 /* InputBar */,
 				D932389F22D0AB24000A0905 /* Resources */,
-				D93238A122D0AB24000A0905 /* Network */,
 				D93238A922D0AB24000A0905 /* ShareView */,
 			);
 			path = Doing;
@@ -294,20 +298,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D93238A122D0AB24000A0905 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				D93238A222D0AB24000A0905 /* TTNetworkManager.m */,
-				D93238A322D0AB24000A0905 /* TTNetworkTask+Private.h */,
-				D93238A422D0AB24000A0905 /* TTURLFactory.h */,
-				D93238A522D0AB24000A0905 /* TTNetworkTask.m */,
-				D93238A622D0AB24000A0905 /* TTNetworkManager.h */,
-				D93238A722D0AB24000A0905 /* TTNetworkTask.h */,
-				D93238A822D0AB24000A0905 /* TTURLFactory.m */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		D93238A922D0AB24000A0905 /* ShareView */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +309,23 @@
 				D93238AF22D0AB24000A0905 /* TTShareView.m */,
 			);
 			path = ShareView;
+			sourceTree = "<group>";
+		};
+		D9820B8C22E352710047037E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D9820B8D22E352710047037E /* TTNetworkManager.m */,
+				D9820B8E22E352720047037E /* TTNetworkTask+Private.h */,
+				D9820B8F22E352720047037E /* TTURLFactory.h */,
+				D9820B9022E352720047037E /* TTNetworkTask.m */,
+				D9820B9222E352720047037E /* TTNetworkCancellable.m */,
+				D9820B9322E352720047037E /* TTNetworkManager.h */,
+				D9820B9422E352720047037E /* TTNetwork.h */,
+				D9820B9522E352720047037E /* TTNetworkCancellable.h */,
+				D9820B9722E352720047037E /* TTNetworkTask.h */,
+				D9820B9822E352720047037E /* TTURLFactory.m */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,7 +443,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D93238CA22D0AB28000A0905 /* TTNetworkTask.m in Sources */,
 				C16C068B22D4437F00C8BF68 /* TTCategoryMenuBarOptionView2Controller.m in Sources */,
 				D93238BC22D0AB28000A0905 /* TTCustomNavigationBarController.m in Sources */,
 				D93238C122D0AB28000A0905 /* PresentAnimationViewController.m in Sources */,
@@ -445,6 +451,7 @@
 				C190429922DD99A600FA20A7 /* TTAbstractProgressView.m in Sources */,
 				D932386B22D0AA7B000A0905 /* ViewController.m in Sources */,
 				D93238CD22D0AB28000A0905 /* TTShareData.m in Sources */,
+				D9820B9B22E352720047037E /* TTNetworkCancellable.m in Sources */,
 				D93238DC22D0C94B000A0905 /* UIImageView+SDImageAutoSize.m in Sources */,
 				C131070A22E01AEC007A945E /* TTFloatCircledDebugView.m in Sources */,
 				D93238BF22D0AB28000A0905 /* TTToastViewController.m in Sources */,
@@ -452,11 +459,11 @@
 				D93238C222D0AB28000A0905 /* TTChangeAppIconViewController.m in Sources */,
 				D93238C522D0AB28000A0905 /* FirstViewController.m in Sources */,
 				C190429C22DDA59A00FA20A7 /* TTSectorProgressView.m in Sources */,
+				D9820B9922E352720047037E /* TTNetworkManager.m in Sources */,
 				D93238D022D0AB28000A0905 /* TTCycleBannerViewController.m in Sources */,
 				D93238C022D0AB28000A0905 /* TTXIBAdapterViewController.m in Sources */,
 				D932387622D0AA7C000A0905 /* main.m in Sources */,
 				D93238BA22D0AB28000A0905 /* TTFuncThrottleViewController.m in Sources */,
-				D93238CB22D0AB28000A0905 /* TTURLFactory.m in Sources */,
 				D93238BB22D0AB28000A0905 /* NetworkManager.m in Sources */,
 				D93238C922D0AB28000A0905 /* TTNetworkManager.m in Sources */,
 				D93238C622D0AB28000A0905 /* SecondViewController.m in Sources */,
@@ -465,6 +472,8 @@
 				C145691922EAFB3900C4F560 /* SNLanguageManager.m in Sources */,
 				D932386822D0AA7B000A0905 /* AppDelegate.m in Sources */,
 				D93238CF22D0AB28000A0905 /* TTLayoutAdapter.m in Sources */,
+				D9820B9A22E352720047037E /* TTNetworkTask.m in Sources */,
+				D9820B9D22E352720047037E /* TTURLFactory.m in Sources */,
 				D93238BD22D0AB28000A0905 /* TTSafeViewController.m in Sources */,
 				D93238CC22D0AB28000A0905 /* TTShareManager.m in Sources */,
 				D93238C422D0AB28000A0905 /* TTSystemAuthorizationViewController.m in Sources */,

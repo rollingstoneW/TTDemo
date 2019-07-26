@@ -10,25 +10,21 @@
 #import "TTNetworkManager.h"
 #import "NSString+TTUtil.h"
 
-@implementation TTURLFactory
-
-@end
-
 @implementation NSString (TTURLFactory)
 
 - (NSString *)tt_urlStringByPrependingDefaultBaseUrl {
-    return [self tt_urlStringByPrependingBaseUrl:[TTNetworkManager sharedInstance].delegate.baseUrl];
+    return [self tt_urlStringByPrependingBaseUrl:[TTNetworkManager sharedManager].baseUrl];
 }
 
 - (NSString *)tt_urlStringByPrependingBaseUrl:(NSString *)baseUrl {
-    if (!baseUrl.length || [self hasPrefix:baseUrl]) { return self; }
+    if (!baseUrl.length || [self hasPrefix:baseUrl] || [self hasPrefix:@"http"]) { return self; }
     baseUrl = [baseUrl tt_stringByDeletingSuffix:@"/"];
     NSString *urlString = [self tt_stringByDeletingPrefix:@"/"];
     return [baseUrl stringByAppendingFormat:@"/%@", urlString];
 }
 
 - (NSString *)tt_urlStringByAppendingDefaultParams {
-    return [self tt_urlStringByAppendingParams:[TTNetworkManager sharedInstance].delegate.commonParams];
+    return [self tt_urlStringByAppendingParams:[TTNetworkManager sharedManager].commonParams];
 }
 
 - (NSString *)tt_urlStringByAppendingParams:(NSDictionary *)params {

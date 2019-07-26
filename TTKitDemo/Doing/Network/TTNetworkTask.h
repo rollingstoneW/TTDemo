@@ -9,8 +9,14 @@
 #import <Foundation/Foundation.h>
 @class TTNetworkTask;
 
+typedef void(^TTNetworkProgressBlock)(uint64_t totalBytes, uint64_t completedBytes);
+typedef void(^TTNetworkCompletion)(TTNetworkTask *task, id responseObject, NSError *error);
+
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 缓存策略
+ */
 typedef NS_ENUM(NSUInteger, TTNetworkTaskCachePolicy) {
     TTNetworkTaskCachePolicyNone, // 不用缓存
     TTNetworkTaskCachePolicyLocal, // 只用本地缓存
@@ -18,39 +24,37 @@ typedef NS_ENUM(NSUInteger, TTNetworkTaskCachePolicy) {
     TTNetworkTaskCachePolicyEtag // 使用e-tag缓存
 };
 
-@protocol TTNetworkTaskDependency <NSObject>
-
-@optional
-- (void)cancelNetworkTasks;
-- (void)cancelNetowrkTask:(TTNetworkTask *)task;
-- (void)cancelNetowrkTaskWithUrlString:(NSString *)url;
-
-@end
-
-@interface NSObject (TTNetworkTask) <TTNetworkTaskDependency>
-@end
-
+/**
+ 请求任务
+ */
 @interface TTNetworkTask : NSObject
 
-@property (nonatomic, strong) id response;
-@property (nonatomic, assign) NSInteger statusCode;
+@property (nonatomic, strong) NSURLSessionTask *realTask; // 实际的任务
+@property (nonatomic, strong) id response; // 响应内容
+@property (nonatomic, assign) NSInteger statusCode; // 状态码
 
-@property (nonatomic, assign) float priority;
+@property (nonatomic, strong) TTNetworkProgressBlock progressBlock; // 进度的回掉
 
-@property (nonatomic, strong, readonly) NSString *originalUrl;
-@property (nonatomic, strong, readonly) NSString *url;
-@property (nonatomic, assign, readonly) BOOL isNormal;
-@property (nonatomic,   copy, readonly) NSString *identifier;
+@property (nonatomic, assign) float priority; // 请求优先级
 
-@property (nonatomic, assign) TTNetworkTaskCachePolicy cachePolicy;
-@property (nonatomic, assign) BOOL isFromCache;
-@property (nonatomic, assign) NSUInteger cacheTimeInSeconds; //
+/**
+ 超时时间，默认为20秒
+ */
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
+
+@property (nonatomic, strong, readonly) NSString *url; // 请求地址
+@property (nonatomic,   copy, readonly) NSString *identifier; // 请求任务的唯一标识符
+
+@property (nonatomic, assign) TTNetworkTaskCachePolicy cachePolicy; // 缓存策略
+@property (nonatomic, assign) BOOL isFromCache; // 是否是从缓存读取的数据
+@property (nonatomic, assign) NSUInteger cacheTimeInSeconds; // 缓存时间
+
+@property (nonatomic, assign) BOOL isCancelled;
+
 
 - (void)resume;
+- (void)suspend;
 - (void)cancel;
-
-- (void)setAutoCancelWhenDependencyDealloced:(id)dependency;
-- (void)setAutoCancelDependency:(id<TTNetworkTaskDependency>)dependency;
 
 @end
 

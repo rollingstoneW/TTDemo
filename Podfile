@@ -8,6 +8,9 @@ target "TTKitDemo" do
 #  pod 'TTCombineDelegateProxy', :path => '../TTCycleBanner'
 
  pod 'TTRabbit', :path => '../TTKit'
+#pod 'TTRabbit', :subspecs => ['YYKitDependency'], :path => '../TTKit'
+# pod 'TTRabbit', :path => 'TTKit'
+
 #  pod 'TTRabbit', :git => 'https://github.com/rollingstoneW/TTKit.git'
   pod 'TTCycleBanner'
   pod 'TTCombineDelegateProxy'
@@ -15,8 +18,8 @@ target "TTKitDemo" do
   pod 'SDWebImage'
   pod 'MJRefresh'
   pod 'AFNetworking'
-  pod 'YYCategories'
-  pod 'YYCache'
+#  pod 'YYCategories'
+#  pod 'YYCache'
   pod 'MBProgressHUD'
   pod 'FLEX'
   pod 'BlocksKit'

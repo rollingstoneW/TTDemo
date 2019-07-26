@@ -8,7 +8,6 @@
 
 #import "TTToastViewController.h"
 #import "TTKit.h"
-#import "YYCategoriesMacro.h"
 
 @interface TTToastViewController ()
 
@@ -46,11 +45,11 @@
 }
 
 - (void)sel1 {
-    [self showLoadingToast:@"加载中..." hideAfterDelay:2];
+    [self tt_showLoadingToast:@"加载中..." hideAfterDelay:2];
 }
 
 - (void)sel2 {
-    [self showSuccessToast:@"加载成功"];
+    [self tt_showSuccessToast:@"加载成功"];
 }
 
 - (void)sel3 {
@@ -59,19 +58,19 @@
         @strongify(self);
         [self sel1];
     }];
-    [self showErrorToast:@"无网络链接..."];
+    [self tt_showErrorToast:@"无网络链接..."];
 }
 
 - (void)sel4 {
-    [self showWarningToast:@"请检查参数是否正确"];
+    [self tt_showWarningToast:@"请检查参数是否正确"];
 }
 
 - (void)sel5 {
-    [self showTextToast:@"请调大音量"];
+    [self tt_showTextToast:@"请调大音量"];
 }
 
 - (void)sel6 {
-    [self hideToasts];
+    [self tt_hideToasts];
 }
 
 @end

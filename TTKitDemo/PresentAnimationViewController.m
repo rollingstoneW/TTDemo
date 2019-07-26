@@ -26,9 +26,9 @@
     self.tt_prefersStatusBarStyle = UIStatusBarStyleLightContent;
 
     [self setupDefaultRightCloseBarItem];
-    [self addSwipeDownGestureToDismiss];
-    [self addRightBarItemWithTitle:@"test" image:nil selector:@selector(test1)];
-    [self addLeftBarItemWithTitle:@"test" image:nil selector:@selector(test2)];
+    [self tt_addSwipeDownGestureToDismiss];
+    [self tt_addRightBarItemWithTitle:@"test" image:nil selector:@selector(test1)];
+    [self tt_addLeftBarItemWithTitle:@"test" image:nil selector:@selector(test2)];
 
     // Do any additional setup after loading the view.
 }
@@ -38,13 +38,13 @@
 //}
 
 - (void)test1 {
-    [self showOKAlertWithTitle:@"test1" message:nil handler:nil];
+    [self tt_showOKAlertWithTitle:@"test1" message:nil handler:nil];
 }
 
 - (void)test2 {
-    [self showCancelableAlertWithTitle:@"test2" message:@"test3" handler:^(NSInteger index) {
+    [self tt_showCancelableAlertWithTitle:@"test2" message:@"test3" handler:^(NSInteger index) {
         if (index == 1) {
-            [self goback];
+            [self tt_goback];
         }
     }];
 }

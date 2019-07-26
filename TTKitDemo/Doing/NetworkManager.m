@@ -7,7 +7,7 @@
 //
 
 #import "NetworkManager.h"
-#import "TTNetworkManager.h"
+//#import "TTNetworkManager.h"
 
 static NSString *const BaseUrl = @"https://www.baidu.com";
 
@@ -42,3 +42,4 @@ static NSString *const BaseUrl = @"https://www.baidu.com";
 }
 
 @end
+

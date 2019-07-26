@@ -10,7 +10,7 @@
 #import "TTShareManager.h"
 #import "TTKit.h"
 #import "Masonry.h"
-#import "YYCategoriesMacro.h"
+//#import "YYCategoriesMacro.h"
 #import "UIView+YYAdd.h"
 
 static const void * ShareViewAssociateKey = &ShareViewAssociateKey;
@@ -239,9 +239,9 @@ static const CGFloat CancelButtonHeight = 50;
     }
     if (self.showResultToast) {
         if (error) {
-            [self showErrorToast:@"分享失败"];
+            [self tt_showErrorToast:@"分享失败"];
         } else {
-            [self showSuccessToast:@"分享成功"];
+            [self tt_showSuccessToast:@"分享成功"];
         }
     }
     [self clearAssociatedSelf];

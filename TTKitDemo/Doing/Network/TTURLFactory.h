@@ -10,10 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TTURLFactory : NSObject
-
-@end
-
 @interface NSString (TTURLFactory)
 
 - (NSString *)tt_urlStringByPrependingDefaultBaseUrl;
