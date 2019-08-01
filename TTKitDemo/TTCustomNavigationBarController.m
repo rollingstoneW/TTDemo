@@ -35,7 +35,7 @@
     [super loadSubviews];
     
     TTNavigationBar *naviBar = (TTNavigationBar *)self.customNavigationBar;
-    [naviBar.backButton addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    [naviBar.backButton addTarget:self action:@selector(tt_goback) forControlEvents:UIControlEventTouchUpInside];
     
     for (NSInteger i = 1; i <= 4; i++) {
         UIButton *button = [UIButton buttonWithTitle:[NSString stringWithFormat:@"添加按钮%ld", i] font:kTTFont_16 titleColor:kTTColor_33];

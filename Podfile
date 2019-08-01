@@ -7,7 +7,7 @@ target "TTKitDemo" do
 #  pod 'TTCycleBanner', :path => '../TTCycleBanner'
 #  pod 'TTCombineDelegateProxy', :path => '../TTCycleBanner'
 
- pod 'TTRabbit', :path => '../TTKit'
+ pod 'TTRabbit', :path => '../TTKit', :inhibit_warnings => false
 #pod 'TTRabbit', :subspecs => ['YYKitDependency'], :path => '../TTKit'
 # pod 'TTRabbit', :path => 'TTKit'
 
@@ -18,8 +18,9 @@ target "TTKitDemo" do
   pod 'SDWebImage'
   pod 'MJRefresh'
   pod 'AFNetworking'
-#  pod 'YYCategories'
-#  pod 'YYCache'
+  pod 'YYCategories'
+  pod 'YYCache'
+  pod 'YYModel'
   pod 'MBProgressHUD'
   pod 'FLEX'
   pod 'BlocksKit'

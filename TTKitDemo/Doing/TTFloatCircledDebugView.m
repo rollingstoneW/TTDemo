@@ -326,6 +326,8 @@ static CGFloat const TTFloatCircledWidth = 60;
     if (y + contentSize.height > superviewHeight - areaBottom) {
         y = self.width - contentSize.height;
         self.isContentViewTop = YES;
+        exclusionRect.origin.y = maxHeight - areaTop - self.width;
+        layout.exclusionRect = exclusionRect;
     } else {
         y = MAX(0, (self.width - contentSize.height) / 2);
         self.isContentViewTop = NO;
@@ -439,11 +441,11 @@ static CGFloat const TTFloatCircledWidth = 60;
 }
 
 - (BOOL)isAtLeft {
-    return CGRectGetMinX(self.frame) == self.superview.tt_safeAreaInsets.left + self.activeAreaInset.left;
+    return CGRectGetMinX(self.frame) == self.activeAreaInset.left;
 }
 
 - (BOOL)isAtTop {
-    return CGRectGetMinY(self.frame) == self.superview.tt_safeAreaInsets.top + self.activeAreaInset.top;
+    return CGRectGetMinY(self.frame) == self.activeAreaInset.top;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

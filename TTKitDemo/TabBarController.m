@@ -38,16 +38,16 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    CGRect firstItemFrame = [(UIView *)[self.tabBar.items.firstObject valueForKey:@"view"] frame];
-    
-    UHNewFeature *feature = [[UHNewFeature alloc] init];
-    feature.targetFrame = [self.tabBar convertRect:firstItemFrame toView:self.view.window];
-    feature.desc = @"双击按钮可以刷新哦";
-    feature.selectorString = @"";
-    feature.identifier = @"123";
-//    feature.style = 1;
-    feature.guideMode = UHNewFeatureGuideModeHighlighted;
-    [[UHNewFeaturesGuideManager sharedGuideManager] registNewFeatures:@[feature] inViewController:self];
+//    CGRect firstItemFrame = [(UIView *)[self.tabBar.items.firstObject valueForKey:@"view"] frame];
+//    
+//    UHNewFeature *feature = [[UHNewFeature alloc] init];
+//    feature.targetFrame = [self.tabBar convertRect:firstItemFrame toView:self.view.window];
+//    feature.desc = @"双击按钮可以刷新哦";
+//    feature.selectorString = @"";
+//    feature.identifier = @"123";
+////    feature.style = 1;
+//    feature.guideMode = UHNewFeatureGuideModeHighlighted;
+//    [[UHNewFeaturesGuideManager sharedGuideManager] registNewFeatures:@[feature] inViewController:self];
 }
 
 @end

@@ -58,7 +58,7 @@
         make.left.top.bottom.equalTo(self.view).insets([self subviewInsets]);
     }];
 
-//    [self addRightBarItemWithTitle:@"关闭" image:nil selector:@selector(goback)];
+//    [self addRightBarItemWithTitle:@"关闭" image:nil selector:@selector(tt_goback)];
 //    [self addSwipeDownGestureToDismiss];
     [self addPulldownToGobackHeaderInScrollView:[optionView valueForKey:@"collectionView"]];
 }

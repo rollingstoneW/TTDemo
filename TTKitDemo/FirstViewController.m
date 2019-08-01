@@ -27,19 +27,23 @@
 #import "TTSectorProgressView.h"
 #import "TTFloatCircledDebugView.h"
 #import "TTNetworkManager.h"
-#import "TTURLFactory.h".
+#import "TTURLFactory.h"
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
-@interface FirstViewController () <TTTabBarControllerChildProtocol>
+@interface FirstViewController () <TTTabBarControllerChildProtocol, UITextFieldDelegate>
 
 @property (nonatomic, strong) TTLocalJSInvocation *JSInvocation;
 
 @property (nonatomic, strong) NSArray *testSingletonClasses;
 
+@property (nonatomic, assign) BOOL isBackgroundRed;
+
 @end
 
-@implementation FirstViewController
+@implementation FirstViewController {
+    
+}
 
 - (instancetype)init {
     self = [super init];
@@ -52,39 +56,6 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-//    UILabel *label  = [UILabel labelWithFont:kTTFont_15 textColor:kTTColor_33];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.userInteractionEnabled = YES;
-//    label.backgroundColor = [UIColor redColor];
-//    [self.view.window addSubview:label];
-//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.equalTo(self.view.window);
-//        make.size.mas_equalTo(CGSizeMake(200, 50));
-//    }];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        NSString *path = [[UIApplication sharedApplication].cachesPath stringByAppendingPathComponent:@"test.js"];
-//        NSString *downLoadUrl = @"https://desk-fd.zol-img.com.cn/t_s2880x1800c5/g2/M00/0A/08/ChMlWl0etgeIBDlZABHLgESTo1gAALjkAAAAAAAEcuY500.jpg";
-//        TTNetworkTask *task = [[TTNetworkManager sharedManager] download:downLoadUrl destination:path shouldResume:YES progess:^(uint64_t totalBytes, uint64_t completedBytes) {
-//            label.text = [NSString stringWithFormat:@"%lld/%lld", completedBytes, totalBytes];
-//        } completion:^(TTNetworkTask *task, id responseObject, NSError *error) {
-//            if (!error) {
-//                [label removeFromSuperview];
-//            }
-//        }];
-//        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
-//            if (task.realTask.state == NSURLSessionTaskStateRunning) {
-//                [task suspend];
-//            } else {
-//                [task resume];
-//            }
-//        }]];
-//        [[TTNetworkManager sharedManager] loadCachedDownloadInfoFoTask:task completion:^(uint64_t totalBytes, uint64_t downloadedBytes) {
-//            label.text = [NSString stringWithFormat:@"%lld/%lld", downloadedBytes, totalBytes];
-//        }];
-//    });
-    
     [self testButtonThrottle];
     
     [self setupRefreshActions];
@@ -93,17 +64,17 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     [self testDebugView];
     
+    [self testSafeMacros];
+    
+    [self testToggleProperty];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self testDateFormatter];
+//        [self testCountdownTimeFormatter];
+//        [self testDateFormatter];
+//        [self testSingletonBenchmark];
+//        [self testSectorProgressView];
+//        [self testJSInvoke];
     });
-    
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        [self testSingletonBenchmark];
-    //    });
-    
-    //    [self testSectorProgressView];
-    
-    //    [self testJSInvoke];
     
     // 如果需要调用application:openURL:options:方法，需要在info.plist里添加对应的schema
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -112,14 +83,11 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     
     TTLog(@"\nnavigationBarHeight -> %ld\ntabBarHeight -> %ld\nsafeAreaBottom -> %f", [UIDevice tt_navigationBarHeight], [UIDevice tt_tabBarHeight], kWindowSafeAreaBottom);
-    
-    //    dispatch_apply(100, DISPATCH_APPLY_AUTO, ^(size_t idx) {
-    //        NSLog(@"%ld", idx);
-    //    });
 }
 
 
 - (NSString *)test:(int)num {
+    NSLog(@"%d", num);
     return @(num).stringValue;
 }
 
@@ -127,16 +95,44 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     [self tt_performSelectorWithArgs:@selector(test:), 1];
     
-    id object = [self tt_performSelectorWithArgs:@selector(test:) afterDelay:3, 2];
+    id object = [self tt_performSelectorWithArgs:@selector(test:) afterDelay:10, 2];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self tt_cancelPreviousPerformRequestWithObject:object];
     });
     
-    [self tt_performSelectorWithArgsOnMainThread:@selector(test:) waitUntilDone:YES, 5];
+    NSString *value = [self tt_performSelectorWithArgsOnMainThread:@selector(test:) waitUntilDone:YES, 5];
     for (NSInteger i = 0; i < 5; i++) {
         [self tt_performSelectorWithArgsInBackground:@selector(test:), i];
     }
-    
+}
+
+- (void)testSafeMacros {
+    NSInteger(^testBlock)(NSInteger, NSInteger) = ^NSInteger(NSInteger i, NSInteger j) {
+        return i + j;
+    };
+    NSString *string = TTSafePerformSelector(self, @selector(test:), 1);
+    NSInteger integer = TTSafeBlockWithReturn(testBlock, NSInteger, 0, 2, 3);
+    TTSafeBlock(testBlock, 2, 4);
+    NSLog(@"%@,%zd", string, integer);
+}
+
+- (void)testToggleProperty {
+    [self tt_observeObject:self forKeyPath:NSStringFromSelector(@selector(isBackgroundRed)) context:nil changed:^(NSString * _Nonnull keyPath, id  _Nonnull newData, id  _Nonnull oldData, void * _Nullable context)
+    {
+        self.tableView.backgroundColor = [newData boolValue] ? [UIColor redColor] : [UIColor whiteColor];
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self tt_toggleForBOOLProperty:NSStringFromSelector(@selector(isBackgroundRed))];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self tt_toggleForBOOLProperty:NSStringFromSelector(@selector(isBackgroundRed))];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self tt_toggleForBOOLProperty:NSStringFromSelector(@selector(isBackgroundRed))];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self tt_toggleForBOOLProperty:NSStringFromSelector(@selector(isBackgroundRed))];
+                });
+            });
+        });
+    });
 }
 
 - (void)testSectorProgressView {
@@ -180,6 +176,12 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     TTFloatCircledDebugView *debugView = [[TTFloatCircledDebugView alloc] initWithTitleForNormal:@"菜单" expanded:@"收起" andDebugActions:actions];
     debugView.activeAreaInset = UIEdgeInsetsMake(kNavigationBarBottom + 5, 5, kTabBarHeight + 5, 5);
     [debugView showAddedInMainWindow];
+}
+
+- (void)testCountdownTimeFormatter {
+    NSInteger time1 = dispatch_benchmark(10000, ^{
+        [NSString tt_countdownStringWithInteval:1000.1];
+    });
 }
 
 - (void)testDateFormatter {
@@ -314,8 +316,17 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [UITableViewCell tt_reusableCellInTableView:tableView];
     cell.textLabel.text = self.dataArray[indexPath.row][@"title"];
-    cell.backgroundColor = kTTColor_e5;
+    cell.backgroundColor = tableView.backgroundColor;
     return cell;
+}
+
+static CGFloat cellHeight = 20;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [tableView numberOfRowsInSection:0] - 1) {
+        cellHeight += 10;
+        return cellHeight;
+    }
+    return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -463,6 +474,14 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     NSDictionary *queries2 = [@"asljf?" tt_urlQueries];
     NSDictionary *queries3 = [@"asljf?key1&key2=1&key2=2&key3=3" tt_urlQueries];
     NSDictionary *queries4 = [url3 tt_urlQueries];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [textField resignFirstResponder];
+    });
 }
 
 @end
