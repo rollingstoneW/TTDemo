@@ -2,12 +2,11 @@
 //  TTFloatCircledDebugView.m
 //  TTKitDemo
 //
-//  Created by weizhenning on 2019/7/18.
+//  Created by rollingstoneW on 2019/7/18.
 //  Copyright © 2019 TTKit. All rights reserved.
 //
 
 #import "TTFloatCircledDebugView.h"
-#import "UICollectionViewLeftAlignedLayout.h"
 #import "TTUIKitFactory.h"
 #import "TTMacros.h"
 #import "UIView+TTUtil.h"

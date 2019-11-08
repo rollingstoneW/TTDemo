@@ -89,6 +89,8 @@
             if (i == 0) {
                 option.titleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18], NSForegroundColorAttributeName:[UIColor blueColor]};
                 option.selectedTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18], NSForegroundColorAttributeName:[UIColor redColor]};
+//                option.isSelectAll = YES;
+//                option.unselectsOthersWhenSelected = YES;
             }
             option.selectBackgroundColor = [UIColor brownColor];
             option.optionRowHeight = 35;
@@ -275,9 +277,44 @@
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didSelectCategory:(NSInteger)category {
     [self tt_showTextToast:[NSString stringWithFormat:@"点击了分类%ld", category]];
+    // 选中全国的时候
+    if (category == 0) {
+        NSArray *categorys = menuBar.items;
+        NSArray *options = menuBar.options;
+        // 把选中的效果都设置为NO
+        TTCategoryMenuBarCategoryItem *category = categorys[2];
+        category.isSelected = NO;
+        for (TTCategoryMenuBarListOptionItem *item in options[2]) {
+            item.isSelected = NO;
+        }
+        // 刷新菜单
+        [menuBar reloadItems:categorys options:options];
+    }
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [menuBar dismissCurrentOptionView];
+//    });
+}
+
+- (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didDeSelectCategory:(NSInteger)category {
+    [self tt_showTextToast:[NSString stringWithFormat:@"取消点击了分类%ld", category]];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didCommitCategoryOptions:(NSArray<TTCategoryMenuBarListOptionItem *> *)options atCategory:(NSInteger)category {
+    
+    // 新的省份列表
+    NSArray *newProvinces;
+    // 生成新的options
+    NSMutableArray *newOptions = menuBar.options.mutableCopy;
+    // 新的省份option
+    NSMutableArray *areaOptions = menuBar.options.firstObject.mutableCopy;
+    // 把新的省份列表添加进去
+    [areaOptions addObjectsFromArray:newProvinces];
+    // 替换第一个option为新的省份option
+    [newOptions replaceObjectAtIndex:0 withObject:areaOptions];
+    // 刷新
+    [menuBar reloadItems:menuBar.items options:newOptions];
+    
     if (!options.count) {
         return;
     }
@@ -297,13 +334,17 @@
     if (category == menuBar.items.count - 1) {
         return;
     }
-    [optionView.doneButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@80);
+//    [optionView.doneButton mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@80);
+//    }];
+//    [optionView.resetButton mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@80);
+//    }];
+//    [optionView invalidateIntrinsicContentSize];
+    
+    [optionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@200);
     }];
-    [optionView.resetButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@80);
-    }];
-    [optionView invalidateIntrinsicContentSize];
 }
 
 - (void)categoryBarOptionView:(TTCategoryMenuBarOptionView *)optionView selectedOptionsDidChange:(NSArray *)selectedOptions {

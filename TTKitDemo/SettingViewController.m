@@ -12,6 +12,18 @@
 #import "PresentAnimationViewController.h"
 #import "TTTransitionPresentContoller.h"
 
+@interface TestPopVC : TTViewController <TTNavigationControllerChildProtocol>
+
+@end
+
+@implementation TestPopVC
+
+- (void)goback {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+@end
+
 @interface SettingViewController () <TTNavigationControllerChildProtocol>
 
 @end
@@ -34,7 +46,9 @@
 }
 
 - (void)pushPresent {
-    [self.navigationController pushViewController:[PresentAnimationViewController new] animated:YES];
+    [self.navigationController pushViewController:[TestPopVC new] animated:YES];
 }
 
 @end
+
+

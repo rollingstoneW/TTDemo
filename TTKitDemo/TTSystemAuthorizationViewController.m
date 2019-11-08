@@ -17,6 +17,7 @@
 @implementation TTSystemAuthorizationViewController
 
 - (instancetype)init {
+    self.tt_prefersStatusBarHidden = YES;
     return [super initWithStyle:UITableViewStyleGrouped];
 }
 

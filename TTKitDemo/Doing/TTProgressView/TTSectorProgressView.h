@@ -2,7 +2,7 @@
 //  TTSectorProgressView.h
 //  TTKitDemo
 //
-//  Created by weizhenning on 2019/7/16.
+//  Created by rollingstoneW on 2019/7/16.
 //  Copyright © 2019 TTKit. All rights reserved.
 //
 

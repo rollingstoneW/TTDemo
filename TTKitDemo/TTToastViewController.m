@@ -54,10 +54,11 @@
 
 - (void)sel3 {
     @weakify(self);
-    [self tt_showNetErrorTipViewWithTapedBlock:^{
-        @strongify(self);
-        [self sel1];
-    }];
+    [self tt_showNetErrorTipViewWithTapedBlock:nil].tag = 1000;
+    
+    
+    [[self.view viewWithTag:1000] removeFromSuperview];
+    
     [self tt_showErrorToast:@"无网络链接..."];
 }
 

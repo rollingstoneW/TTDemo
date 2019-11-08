@@ -2,7 +2,7 @@
 //  TTCategoryMenuBarOptionView2Controller.m
 //  TTKit
 //
-//  Created by weizhenning on 2019/7/8.
+//  Created by rollingstoneW on 2019/7/8.
 //  Copyright © 2019 weizhenning. All rights reserved.
 //
 
@@ -70,6 +70,11 @@
     [optionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.view).insets([self subviewInsets]);
     }];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController tt_popToNeareastViewController2:@"FirstViewController" animated:YES];
+    });
 }
 
 // 选中的内容发生了变化

@@ -28,6 +28,7 @@
 #import "TTFloatCircledDebugView.h"
 #import "TTNetworkManager.h"
 #import "TTURLFactory.h"
+#import "TTAbstractPopupView.h"
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
@@ -58,7 +59,16 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     [self testButtonThrottle];
     
-    [self setupRefreshActions];
+    
+    @weakify(self);
+    [self setupRefreshHeaderWithBlock:^{
+        @strongify(self);
+        [self loadNewData];
+    }];
+//    [self setupRefreshFooterWithBlock:^{
+//        @strongify(self);
+//        [self loadMoreData];
+//    }];
     
     [self testPerformSelector];
     
@@ -68,13 +78,82 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     [self testToggleProperty];
     
+    NSDictionary *dict = @{@"1":@{@"2":@2}, @"2":@[@1]};
+    NSLog(@"%@", [dict dictionaryValueForKey:@"1" defaultValue:nil]);
+    NSLog(@"%@", [dict dictionaryValueForKey:@"2" defaultValue:nil]);
+    NSLog(@"%@", [dict arrayValueForKey:@"1" defaultValue:nil]);
+    NSLog(@"%@", [dict arrayValueForKey:@"2" defaultValue:nil]);
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self testCountdownTimeFormatter];
 //        [self testDateFormatter];
 //        [self testSingletonBenchmark];
 //        [self testSectorProgressView];
 //        [self testJSInvoke];
+        
+        
+        
     });
+    
+    
+    
+    UILabel *label = [UILabel labelWithText:@"alksdjfal;ksdfasdjkfalskjdfiorehgsadljbvilao\nr;whgurialdskfjhgri;oaiwldskfheruqgawio;ldjkhoe;qiagwlkjh;adklhgs" font:kTTFont_24 textColor:kTTColor_33 alignment:NSTextAlignmentCenter numberOfLines:0];
+    label.backgroundColor = [UIColor whiteColor];
+//    label.frame = self.view.bounds;
+    [self.view addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view);
+        make.center.equalTo(self.view);
+    }];
+    
+    NSString *html = @"< span style = \" FILTER: blur(add=true, direction=90, strength=6)\">模糊文字效果 < /span >";
+    [html tt_convertHtmlStringToNSAttributedString:^(NSAttributedString *text) {
+        label.attributedText = text;
+    }];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 取到label的截图
+        UIImage *image = [label.layer snapshotImage];
+        // 把截图模糊化
+        UIImage *blueImage = [image imageByBlurRadius:5 tintColor:[UIColor colorWithWhite:0.5 alpha:0.1] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:blueImage];
+        [label addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(label);
+        }];
+
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:CGPointMake(0, 30)];
+        [path addLineToPoint:CGPointMake(80, 30)];
+        [path addLineToPoint:CGPointMake(80, 0)];
+        [path addLineToPoint:CGPointMake(label.bounds.size.width, 0)];
+        [path addLineToPoint:CGPointMake(label.bounds.size.width, label.bounds.size.height)];
+        [path addLineToPoint:CGPointMake(0, label.bounds.size.height)];
+        [path addLineToPoint:CGPointMake(0, 30)];
+
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        layer.frame = layer.bounds;
+        layer.path = path.CGPath;
+        imageView.layer.mask = layer;
+//
+////        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////            imageView.image = [image imageByBlurSoft];
+////            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////                imageView.image = [image imageByBlurDark];
+////            });
+////        });
+//    });
+    
+//    UIBlurEffect * effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+//    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+//    effectView.frame = label.bounds;
+//
+//    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 200, 200)];
+//    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+//    maskLayer.path = path.CGPath;
+//    effectView.layer.mask = maskLayer;
+
+//    [self.view addSubview:effectView];
     
     // 如果需要调用application:openURL:options:方法，需要在info.plist里添加对应的schema
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

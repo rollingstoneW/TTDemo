@@ -2,7 +2,7 @@
 //  TTCategoryMenuBarOptionView2Controller.h
 //  TTKit
 //
-//  Created by weizhenning on 2019/7/8.
+//  Created by rollingstoneW on 2019/7/8.
 //  Copyright © 2019 weizhenning. All rights reserved.
 //
 
