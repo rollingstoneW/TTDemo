@@ -123,7 +123,7 @@
             if (i == 0) {
                 option.isSelectAll = YES;
             }
-            if (i == 5) {
+            if (i == 4) {
                 option.isSelected = YES;
             }
             [optionArr addObject:option];
@@ -132,7 +132,7 @@
             option.childOptions = childOptions;
             for (NSInteger j = 0; j < 5; j++) {
                 TTCategoryMenuBarListOptionChildItem *child = [[TTCategoryMenuBarListOptionChildItem alloc] init];
-                child.title = [NSString stringWithFormat:@"我是一个很长很长很长很长很长很长的元素%ld-%ld", i, j];
+                child.title = [NSString stringWithFormat:@"元素%ld-%ld", i, j];
                 child.extraData = @(j).stringValue;
                 child.optionRowHeight = 40;
                 child.selectBackgroundColor = [UIColor redColor];
@@ -212,7 +212,7 @@
             TTCategoryMenuBarSectionItem *option = [[TTCategoryMenuBarSectionItem alloc] init];
             option.title = [NSString stringWithFormat:@"分组%ld", i];
             option.extraData = @(i).stringValue;
-            option.childAllowsMultipleSelection = YES;
+            option.childAllowsMultipleSelection = i == 0;
             [optionArr addObject:option];
 
             NSMutableArray *childOptions = [NSMutableArray array];
@@ -294,6 +294,11 @@
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [menuBar dismissCurrentOptionView];
 //    });
+    
+    if (category == 2) {
+        UIButton *editButton = [menuBar menuButtonItemAtCategory:category];
+        editButton.selected = YES;
+    }
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didDeSelectCategory:(NSInteger)category {
@@ -302,19 +307,19 @@
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar didCommitCategoryOptions:(NSArray<TTCategoryMenuBarListOptionItem *> *)options atCategory:(NSInteger)category {
     
-    // 新的省份列表
-    NSArray *newProvinces;
-    // 生成新的options
-    NSMutableArray *newOptions = menuBar.options.mutableCopy;
-    // 新的省份option
-    NSMutableArray *areaOptions = menuBar.options.firstObject.mutableCopy;
-    // 把新的省份列表添加进去
-    [areaOptions addObjectsFromArray:newProvinces];
-    // 替换第一个option为新的省份option
-    [newOptions replaceObjectAtIndex:0 withObject:areaOptions];
-    // 刷新
-    [menuBar reloadItems:menuBar.items options:newOptions];
-    
+//    // 新的省份列表
+//    NSArray *newProvinces;
+//    // 生成新的options
+//    NSMutableArray *newOptions = menuBar.options.mutableCopy;
+//    // 新的省份option
+//    NSMutableArray *areaOptions = menuBar.options.firstObject.mutableCopy;
+//    // 把新的省份列表添加进去
+//    [areaOptions addObjectsFromArray:newProvinces];
+//    // 替换第一个option为新的省份option
+//    [newOptions replaceObjectAtIndex:0 withObject:areaOptions];
+//    // 刷新
+//    [menuBar reloadItems:menuBar.items options:newOptions];
+//    
     if (!options.count) {
         return;
     }
@@ -325,6 +330,12 @@
         [values addObject:value];
     }
     [self tt_showOKAlertWithTitle:[NSString stringWithFormat:@"选中了分类%ld里的%@", category, [values componentsJoinedByString:@","]] message:nil handler:nil];
+    
+    
+    
+    TTCategoryMenuBarCategoryItem *categoryItem = menuBar.items[1];
+    categoryItem.title = @"新的名字";
+    [menuBar reloadItems:menuBar.items options:menuBar.options];
 }
 
 - (void)categoryMenuBar:(TTCategoryMenuBar *)menuBar willShowOptionView:(TTCategoryMenuBarOptionView *)optionView atCategory:(NSInteger)category {
