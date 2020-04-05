@@ -10,7 +10,7 @@
 #import "FirstViewController.h"
 #import "SecondViewController.h"
 #import "TTNavigationController.h"
-#import "UHNewFeaturesGuideManager.h"
+//#import <TTRabbit/UHNewFeaturesGuideManager.h>
 
 @implementation TabBarController
 

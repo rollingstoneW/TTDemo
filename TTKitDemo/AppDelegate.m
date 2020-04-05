@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TabBarController.h"
-#import "TTNavigationBar.h"
+#import <TTRabbit/TTNavigationBar.h>
 #import <TTSafeKit.h>
 
 @interface AppDelegate ()

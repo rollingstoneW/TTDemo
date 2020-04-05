@@ -7,7 +7,7 @@
 //
 
 #import "TTSafeViewController.h"
-#import "TTKit.h"
+#import <TTRabbit/TTSafeKit.h>
 
 @interface TTSafeViewController ()
 

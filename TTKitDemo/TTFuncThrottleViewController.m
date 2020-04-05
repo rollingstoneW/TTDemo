@@ -8,7 +8,6 @@
 
 #import "TTFuncThrottleViewController.h"
 #import "TTFuncThrottle.h"
-#import "TTKit.h"
 
 @interface TTFuncThrottleViewController ()
 
@@ -59,7 +58,7 @@
                 NSLog(@"调用了%ld", idx);
             });
             throttle.tag = @(idx).stringValue;
-            [self.throttles tt_addObject:throttle];
+            [self.throttles addObject:throttle];
             self.lastThrottle = throttle;
             if (i == 10) {
                 [self.timer invalidate];
@@ -81,7 +80,7 @@
             if (throttle.state == TTFuncThrottleStateCancelled) {
                 self.lastThrottle = throttle;
             }
-            [self.throttles tt_addObject:throttle];
+            [self.throttles addObject:throttle];
             if (i == 10) {
                 [self.timer invalidate];
             }

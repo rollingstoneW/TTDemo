@@ -7,22 +7,24 @@ target "TTKitDemo" do
 #  pod 'TTCycleBanner', :path => '../TTCycleBanner'
 #  pod 'TTCombineDelegateProxy', :path => '../TTCycleBanner'
 
- pod 'TTRabbit', :path => '../TTKit', :inhibit_warnings => false
+ pod 'TTRabbit', :subspecs => ['All', 'YYCategoryDependency'], :path => '../TTKit', :inhibit_warnings => false
 #pod 'TTRabbit', :subspecs => ['YYKitDependency'], :path => '../TTKit'
 # pod 'TTRabbit', :path => 'TTKit'
 
 #  pod 'TTRabbit', :git => 'https://github.com/rollingstoneW/TTKit.git'
   pod 'TTCycleBanner'
+  pod 'TTCategoryMenuBar', '0.0.1'
+#  pod 'TTCategoryMenuBar', :path => '../TTCategoryMenuBar'
   pod 'TTCombineDelegateProxy'
   pod 'Masonry'
   pod 'SDWebImage'
   pod 'MJRefresh'
   pod 'AFNetworking'
-  pod 'YYCategories'
+#  pod 'YYCategories'
   pod 'YYCache'
   pod 'YYModel'
   pod 'MBProgressHUD'
-  pod 'FLEX'
+  # pod 'FLEX'
   pod 'BlocksKit'
 #  pod 'sentry'
 
