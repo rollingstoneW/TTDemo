@@ -7,7 +7,7 @@
 //
 
 #import "SecondViewController.h"
-#import <FLEX.h>
+//#import <FLEX.h>
 #import "SettingViewController.h"
 
 @interface SecondViewController ()
@@ -25,7 +25,7 @@
 }
 
 - (void)sel0 {
-    [[FLEXManager sharedManager] showExplorer];
+//    [[FLEXManager sharedManager] showExplorer];
 }
 
 - (void)sel1 {

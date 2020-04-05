@@ -8,7 +8,6 @@
 
 #import "TTCycleBannerViewController.h"
 #import "TTCycleBanner.h"
-#import "TTKit.h"
 
 @interface TestPagingCollectionCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel *textLabel;

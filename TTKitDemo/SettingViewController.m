@@ -7,8 +7,6 @@
 //
 
 #import "SettingViewController.h"
-#import "TTKit.h"
-#import "TTNavigationControllerChildProtocol.h"
 #import "PresentAnimationViewController.h"
 #import "TTTransitionPresentContoller.h"
 

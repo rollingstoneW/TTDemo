@@ -8,8 +8,7 @@
 
 #import "TTShareView.h"
 #import "TTShareManager.h"
-#import "TTKit.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 //#import "YYCategoriesMacro.h"
 #import "UIView+YYAdd.h"
 

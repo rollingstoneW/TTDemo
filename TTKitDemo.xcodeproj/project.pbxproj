@@ -47,6 +47,7 @@
 		D9820B9A22E352720047037E /* TTNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9022E352720047037E /* TTNetworkTask.m */; };
 		D9820B9B22E352720047037E /* TTNetworkCancellable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9222E352720047037E /* TTNetworkCancellable.m */; };
 		D9820B9D22E352720047037E /* TTURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9822E352720047037E /* TTURLFactory.m */; };
+		E7079D8B243990D000195436 /* NewFeatureGuide in Resources */ = {isa = PBXBuildFile; fileRef = E7079D8A243990D000195436 /* NewFeatureGuide */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		D9820B9522E352720047037E /* TTNetworkCancellable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkCancellable.h; sourceTree = "<group>"; };
 		D9820B9722E352720047037E /* TTNetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkTask.h; sourceTree = "<group>"; };
 		D9820B9822E352720047037E /* TTURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLFactory.m; sourceTree = "<group>"; };
+		E7079D8A243990D000195436 /* NewFeatureGuide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NewFeatureGuide; sourceTree = "<group>"; };
 		F21048E0759DF73BDE6E1BE4 /* Pods-TTKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-TTKitDemo/Pods-TTKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,6 +264,7 @@
 		D932389A22D0AB24000A0905 /* Doing */ = {
 			isa = PBXGroup;
 			children = (
+				E7079D8A243990D000195436 /* NewFeatureGuide */,
 				C131070822E01AEB007A945E /* TTFloatCircledDebugView.h */,
 				C131070922E01AEC007A945E /* TTFloatCircledDebugView.m */,
 				D9820B8C22E352710047037E /* Network */,
@@ -390,6 +393,7 @@
 				D932387322D0AA7C000A0905 /* LaunchScreen.storyboard in Resources */,
 				D932387022D0AA7C000A0905 /* Assets.xcassets in Resources */,
 				D93238BE22D0AB28000A0905 /* TTXIBAdapterViewController.xib in Resources */,
+				E7079D8B243990D000195436 /* NewFeatureGuide in Resources */,
 				D93238C822D0AB28000A0905 /* TTCalculate.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,6 @@
 //
 
 #import "TTInputBar.h"
-#import "TTKit.h"
 #import <Masonry.h>
 
 static const CGFloat TextViewMarginTop = 9;

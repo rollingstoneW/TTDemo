@@ -10,7 +10,7 @@
 #import "TTCategoryMenuBar.h"
 #import "TTCategoryMenuBarOptionView.h"
 #import <Masonry.h>
-#import "TTKit.h"
+#import <TTRabbit/TTViewTagGenerator.h>
 #import "TTCombineDelegateProxy.h"
 #import "TTCategoryMenuBarOptionViewController.h"
 #import "TTCategoryMenuBarOptionView2Controller.h"

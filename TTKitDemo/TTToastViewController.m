@@ -7,7 +7,6 @@
 //
 
 #import "TTToastViewController.h"
-#import "TTKit.h"
 
 @interface TTToastViewController ()
 

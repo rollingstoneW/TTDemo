@@ -7,7 +7,6 @@
 //
 
 #import "TTCustomNavigationBarController.h"
-#import "TTKit.h"
 #import "TTAlphaNavigationBar.h"
 #import "TTLargeTitleNavigationBar.h"
 #import <Masonry.h>
