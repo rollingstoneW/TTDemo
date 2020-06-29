@@ -26,27 +26,8 @@
     self.window = window;
     
     [[TTNavigationBar appearance] setBackImage:[UIImage imageNamed:@"back"]];
-
-    [self test1];
-    [self test2];
-    
     return YES;
 }
-
-- (void)test1 {
-    static dispatch_once_t token;
-    dispatch_once(&token, ^{
-
-    });
-}
-
-- (void)test2 {
-    static dispatch_once_t token;
-    dispatch_once(&token, ^{
-
-    });
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

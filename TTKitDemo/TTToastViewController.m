@@ -8,16 +8,39 @@
 
 #import "TTToastViewController.h"
 
+@interface TTBarButton : UIButton
+
+@property (nonatomic, assign) CGFloat rightInset;
+
+@end
+
+@implementation TTBarButton
+
+- (UIEdgeInsets)alignmentRectInsets {
+    return [super alignmentRectInsets];
+}
+
+- (CGRect)imageRectForContentRect:(CGRect)contentRect {
+    CGSize size = self.currentImage.size;
+    CGRect originFrame = [super imageRectForContentRect:contentRect];
+    return CGRectMake(CGRectGetMaxX(contentRect) - size.width - self.rightInset, originFrame.origin.y, size.width, size.height);
+}
+
+@end
+
 @interface TTToastViewController ()
 
 @end
 
 @implementation TTToastViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.title = @"Toast";
+    
 }
 
 - (void)loadTableView {

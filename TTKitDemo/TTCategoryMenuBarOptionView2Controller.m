@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"分组列表";
+    self.title = @"双排列表";
 
     // 分类的模型
     TTCategoryMenuBarListCategoryItem *item = [[TTCategoryMenuBarListCategoryItem alloc] init];
@@ -70,11 +70,6 @@
     [optionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.view).insets([self subviewInsets]);
     }];
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.navigationController tt_popToNeareastViewController2:@"FirstViewController" animated:YES];
-    });
 }
 
 // 选中的内容发生了变化

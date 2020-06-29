@@ -34,7 +34,9 @@
         TTCategoryMenuBarSectionItem *option = [[TTCategoryMenuBarSectionItem alloc] init];
         option.title = [NSString stringWithFormat:@"分组%ld", i];
         option.extraData = @(i).stringValue;
-        option.childAllowsMultipleSelection = YES;
+        option.sectionHeaderHeight = 20;
+        option.sectionInset = UIEdgeInsetsMake(100, 15, 50, 15);
+//        option.childAllowsMultipleSelection = YES;
         [optionArr addObject:option];
 
         NSMutableArray *childOptions = [NSMutableArray array];

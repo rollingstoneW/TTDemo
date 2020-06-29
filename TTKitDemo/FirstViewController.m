@@ -32,6 +32,30 @@
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
+@interface UIView (PPPPPP)
+
+@end
+
+@implementation UIView (PPPPPP)
+
+
++ (void)load {
+    if ([UIDevice currentDevice].systemVersion.integerValue < 12) {
+        
+//        id block = ^CATransform3D(__unsafe_unretained id self, SEL){
+//            NSLog(@"%@", self);
+//            return CATransform3DMakeScale(0, 0, 0);
+//        };
+//        IMP imp = imp_implementationWithBlock(block);
+//        BOOL success = class_addMethod(self, @selector(transform3D), imp, method_getTypeEncoding(class_getInstanceMethod(self, @selector(transform3D))));
+//        if (!success) {
+//            method_setImplementation(class_getInstanceMethod(self, @selector(transform3D)), imp);
+//        }
+    }
+}
+
+@end
+
 @interface FirstViewController () <TTTabBarControllerChildProtocol, UITextFieldDelegate>
 
 @property (nonatomic, strong) TTLocalJSInvocation *JSInvocation;
@@ -39,6 +63,14 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 @property (nonatomic, strong) NSArray *testSingletonClasses;
 
 @property (nonatomic, assign) BOOL isBackgroundRed;
+
+@end
+
+@implementation TestLabel: UILabel
+
++ (Class)layerClass {
+    return [CAShapeLayer class];
+}
 
 @end
 
@@ -57,8 +89,12 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self testButtonThrottle];
+//    [self testButtonThrottle];
     
+//    [self testHTML2AttributedString];
+
+    //TODO:weizhenning
+    [self testURLComponents];
     
     @weakify(self);
     [self setupRefreshHeaderWithBlock:^{
@@ -70,7 +106,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 //        [self loadMoreData];
 //    }];
     
-    [self testPerformSelector];
+//    [self testPerformSelector];
     
     [self testDebugView];
     
@@ -83,11 +119,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
 //    [self testToggleProperty];
     
-    NSDictionary *dict = @{@"1":@{@"2":@2}, @"2":@[@1]};
-    NSLog(@"%@", [dict tt_dictionaryValueForKey:@"1" defaultValue:nil]);
-    NSLog(@"%@", [dict tt_dictionaryValueForKey:@"2" defaultValue:nil]);
-    NSLog(@"%@", [dict tt_arrayValueForKey:@"1" defaultValue:nil]);
-    NSLog(@"%@", [dict tt_arrayValueForKey:@"2" defaultValue:nil]);
+    [self testDictionaryMerge];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self testCountdownTimeFormatter];
@@ -99,8 +131,41 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
         
         
     });
+//    [self testBenchmark];
+    
+//    [self testEdgeInsetLabel];
+    
+    //TODO:weizhenning
+    [self testBlurText];
+    
+//    NSString *url = @"http://www.baidu.com?url=http://www.google.com&vc=1";
+//    NSURL *URL = [NSURL URLWithString:url];
+    
+//    [self testSemaphore];
     
     
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        TTViewController *vc1 = [[TTViewController alloc] init];
+//        [self presentViewController:vc1 animated:YES completion:nil];
+////        [self.navigationController pushViewController:vc1 animated:YES];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////            [vc1.navigationController popViewControllerAnimated:YES];
+//            [vc1 dismissViewControllerAnimated:YES completion:^{
+//                 NSLog(@"%@", vc1.parentViewController);
+//            }];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                NSLog(@"%@", vc1.parentViewController);
+//            });
+//        });
+////        TTNavigationController *navi = [[TTNavigationController alloc] initWithRootViewController:vc1];
+////        [self presentViewController:navi animated:YES completion:^{
+////            TTViewController *vc2 = [[TTViewController alloc] init];
+////            [vc2.view tt_addTapGestureWithBlock:^(UITapGestureRecognizer *tap) {
+////                [vc1 dismissViewControllerAnimated:YES completion:nil];
+////            }];
+////            [navi pushViewController:vc2 animated:YES];
+////        }];
+
 //
 //    UILabel *label = [UILabel labelWithText:@"alksdjfal;ksdfasdjkfalskjdfiorehgsadljbvilao\nr;whgurialdskfjhgri;oaiwldskfheruqgawio;ldjkhoe;qiagwlkjh;adklhgs" font:kTTFont_24 textColor:kTTColor_33 alignment:NSTextAlignmentCenter numberOfLines:0];
 //    label.backgroundColor = [UIColor whiteColor];
@@ -144,30 +209,73 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 ////        });
 //    });
     
-//    UIBlurEffect * effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-//    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-//    effectView.frame = label.bounds;
-//
-//    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 200, 200)];
-//    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-//    maskLayer.path = path.CGPath;
-//    effectView.layer.mask = maskLayer;
-
-//    [self.view addSubview:effectView];
-    
-    // 如果需要调用application:openURL:options:方法，需要在info.plist里添加对应的schema
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"airclass://test"]];
-    //    });
-    
-    
-    TTLog(@"\nnavigationBarHeight -> %.0f\ntabBarHeight -> %.0f\nsafeAreaBottom -> %.0f", [UIDevice tt_navigationBarHeight], [UIDevice tt_tabBarHeight], kWindowSafeAreaBottom);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self testCountdownTimeFormatter];
+//        [self testDateFormatter];
+//        [self testSingletonBenchmark];
+//        [self testSectorProgressView];
+//        [self testJSInvoke];
+    });
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    NSLog(@"navigationBarHeight -> %ld\ntabBarHeight -> %ld\nstatusBarHeight -> %.0f", [UIDevice tt_navigationBarHeight], [UIDevice tt_tabBarHeight], kStatusBarHeight);
+}
+
+dispatch_semaphore_t semaphore;
+dispatch_queue_t queue;
+
+- (void)testSemaphore {
+    semaphore = dispatch_semaphore_create(2);
+    queue = dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL);
+    
+
+
+    void(^block)(NSInteger) = ^(NSInteger index){
+        dispatch_async(queue, ^{
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"--- %ld ---", index);
+                dispatch_semaphore_signal(semaphore);
+            });
+        });
+    };
+    for (NSInteger i = 0; i < 20; i++) {
+        block(i);
+    }
+}
+
+- (void)testDictionaryMerge {
+    
+    NSDictionary *dic1 = @{@"1": @1, @"2": @[@"1", @"2"], @"3": @{@"1": @{@"one": @"one"}}};
+    NSDictionary *dic2 = @{@"1": @11, @"2": @[@"11", @"12"], @"3": @{@"1": @{@"one" : @"one", @"two": @"two"}}};
+//    NSDictionary *merge1 = [dic1 tt_dictionaryByMergingOtherUsingNew:dic2];
+//    NSDictionary *merge2 = [dic1 tt_dictionaryByMergingOtherCombined:dic2 usingStrict:NO];
+//    NSDictionary *merge3 = [dic1 tt_dictionaryByMergingOtherCombined:dic2 usingStrict:YES];
+//    NSLog(@"usingNew:\n%@\ncombined:\n%@\ncombined strict:\n%@", merge1, merge2, merge3);
+}
 
 - (NSString *)test:(int)num {
     NSLog(@"%d", num);
     return @(num).stringValue;
+}
+
+- (void)testURLComponents {
+//     NSString *url = @"app://atf/12/23?adf=af";
+//        NSURLComponents *components = [[NSURLComponents alloc] initWithString:url];
+//        [components tt_addQueryValue:@"ee" forName:@"qw"];
+//        NSLog(@"%@", components);
+//        [components tt_setQueryValue:@"2" forName:@"qw"];
+//        NSLog(@"%@", components);
+//        [components tt_setQueryValue:nil forName:@"qw"];
+//        NSLog(@"%@", components);
+//        [components tt_setQueryValue:@"new" forName:@"qw"];
+//        NSLog(@"%@", components);
+//        [components tt_removeQueryForName:@"qw"];
+//        NSLog(@"%@", components);
+//        [components tt_addQueryValue:@"123" forName:@"adf"];
+//        NSLog(@"%@", components);
+    //    components tt_addQueryValue:@[@{@"1":@"one", @"2": @"two"}, @"1": @"one"] forName:<#(nonnull NSString *)#>
 }
 
 - (void)testPerformSelector {
@@ -212,6 +320,16 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
             });
         });
     });
+}
+
+- (void)testEdgeInsetLabel {
+//    TTEdgeInsetsLabel *label1 = [TTEdgeInsetsLabel labelWithText:@"123424 1234 |" font:kTTFont_20 textColor:kTTColor_Red];
+//    label1.edgeInsets = UIEdgeInsetsMake(4, 15, 4, 15);
+//    label1.backgroundColor = [UIColor blueColor];
+//    [self.view addSubview:label1];
+//    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self.view);
+//    }];
 }
 
 - (void)testSectorProgressView {
@@ -293,7 +411,63 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 }
 
 - (void)testCountdownTimeFormatter {
+    NSString *time1 = [NSString tt_HMSDateStringFromSeconds:20000000 alwaysShowHour:YES paddingZero:YES usingChineseFormat:NO];
+    NSString *time2 = [NSString tt_HMSDateStringFromSeconds:10000 alwaysShowHour:YES paddingZero:NO usingChineseFormat:NO];
+    NSString *time3 = [NSString tt_HMSDateStringFromSeconds:10000 alwaysShowHour:NO paddingZero:YES usingChineseFormat:NO];
+    NSString *time4 = [NSString tt_HMSDateStringFromSeconds:10000 alwaysShowHour:NO paddingZero:NO usingChineseFormat:NO];
+    NSString *time5 = [NSString tt_HMSDateStringFromSeconds:10000 alwaysShowHour:NO paddingZero:NO usingChineseFormat:YES];
+    NSLog(@"time1:%@,time2:%@,time3:%@,time4:%@,time5:%@", time1, time2, time3, time4, time5);
+}
+
+- (void)testBlurText {
+//    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 取到label的截图
+//            UIImage *image = [label.layer snapshotImage];
+//            // 把截图模糊化
+//            UIImage *blueImage = [image imageByBlurRadius:5 tintColor:[UIColor colorWithWhite:0.5 alpha:0.1] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+//            UIImageView *imageView = [[UIImageView alloc] initWithImage:blueImage];
+//            [label addSubview:imageView];
+//            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.edges.equalTo(label);
+//            }];
+//
+//            UIBezierPath *path = [UIBezierPath bezierPath];
+//            [path moveToPoint:CGPointMake(0, 30)];
+//            [path addLineToPoint:CGPointMake(80, 30)];
+//            [path addLineToPoint:CGPointMake(80, 0)];
+//            [path addLineToPoint:CGPointMake(label.bounds.size.width, 0)];
+//            [path addLineToPoint:CGPointMake(label.bounds.size.width, label.bounds.size.height)];
+//            [path addLineToPoint:CGPointMake(0, label.bounds.size.height)];
+//            [path addLineToPoint:CGPointMake(0, 30)];
+//
+//            CAShapeLayer *layer = [CAShapeLayer layer];
+//            layer.frame = layer.bounds;
+//            layer.path = path.CGPath;
+//            imageView.layer.mask = layer;
+//    //
+//    ////        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    ////            imageView.image = [image imageByBlurSoft];
+//    ////            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    ////                imageView.image = [image imageByBlurDark];
+//    ////            });
+//    ////        });
+//    //    });
     
+    //    UIBlurEffect * effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    //    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    //    effectView.frame = label.bounds;
+    //
+    //    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 200, 200)];
+    //    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    //    maskLayer.path = path.CGPath;
+    //    effectView.layer.mask = maskLayer;
+
+    //    [self.view addSubview:effectView];
+        
+        // 如果需要调用application:openURL:options:方法，需要在info.plist里添加对应的schema
+        //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"airclass://test"]];
+        //    });
 }
 
 - (void)testDateFormatter {
@@ -491,8 +665,22 @@ static CGFloat cellHeight = 20;
     };
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+}
+
 - (void)sel6 {
     [self.navigationController pushViewController:[TTToastViewController new] animated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIView *redView = [UIView viewWithColor:kTTColor_Red];
+        redView.frame = [UIScreen mainScreen].bounds;
+        [redView tt_addTapGestureWithBlock:^(UITapGestureRecognizer *tap) {
+            [self.navigationController setNavigationBarHidden:NO animated:NO];
+            [redView removeFromSuperview];
+        }];
+        [self.view addSubview:redView];
+    });
 }
 
 - (void)sel7 {
@@ -549,31 +737,39 @@ static CGFloat cellHeight = 20;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
+- (void)testHTML2AttributedString {
+    NSError *error;
+    NSString *htmlString = [NSString stringWithContentsOfFile:@"/Users/zyb/Desktop/baidu.html" encoding:NSUTF8StringEncoding error:&error];
+    [htmlString tt_convertHtmlStringToNSAttributedString:^(NSAttributedString * _Nonnull attr) {
+        NSLog(@"%@", attr);
+    }];
+}
+
 - (void)buttonClicked {
     [self tt_showTextToast:@"触发点击事件"];
 }
 
 - (void)testBenchmark {
-    uint64_t time1 = dispatch_benchmark(1000, ^{
-        NSTimeInterval interval = CACurrentMediaTime();
-        interval;
-    });
-    TTLog(@"%llu", time1);
-    uint64_t time2 = dispatch_benchmark(1000, ^{
-        NSTimeInterval interval = CFAbsoluteTimeGetCurrent();
-        interval;
-    });
-    TTLog(@"%llu", time2);
-    uint64_t time3 = dispatch_benchmark(1000, ^{
-        NSTimeInterval interval = [[NSDate date] timeIntervalSinceReferenceDate];
-        interval;
-    });
-    TTLog(@"%llu", time3);
-    uint64_t time4 = dispatch_benchmark(1000, ^{
-        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-        interval;
-    });
-    TTLog(@"%llu", time4);
+//    uint64_t time1 = dispatch_benchmark(1000, ^{
+//        NSTimeInterval interval = CACurrentMediaTime();
+//        interval;
+//    });
+//    TTLog(@"%llu", time1);
+//    uint64_t time2 = dispatch_benchmark(1000, ^{
+//        NSTimeInterval interval = CFAbsoluteTimeGetCurrent();
+//        interval;
+//    });
+//    TTLog(@"%llu", time2);
+//    uint64_t time3 = dispatch_benchmark(1000, ^{
+//        NSTimeInterval interval = [[NSDate date] timeIntervalSinceReferenceDate];
+//        interval;
+//    });
+//    TTLog(@"%llu", time3);
+//    uint64_t time4 = dispatch_benchmark(1000, ^{
+//        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+//        interval;
+//    });
+//    TTLog(@"%llu", time4);
 }
 
 - (void)testUrlString {
