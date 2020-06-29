@@ -64,7 +64,7 @@ static CGFloat const TTFloatCircledWidth = 60;
         CGFloat lineStart = self.sectionInset.left;
         CGFloat itemTop = lastBottom, itemBottom = lastBottom + CGRectGetHeight(frame);
         CGFloat itemWidth = CGRectGetWidth(frame), itemHeight = CGRectGetHeight(frame);
-        // 在空白区域范围内
+        // 在空白Y轴区域范围内
         if (itemTop < CGRectGetMaxY(self.exclusionRect) + lineSpace && itemBottom > CGRectGetMinY(self.exclusionRect) - lineSpace) {
             while (lastBottom < CGRectGetMaxY(self.exclusionRect) + lineSpace) {
                 CGFloat tempLastRight = lastRight;
@@ -119,7 +119,12 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 @end
 
-@interface TTFloatCircledDebugView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CAAnimationDelegate>
+@interface TTFloatCircledDebugView ()
+<UICollectionViewDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout,
+CAAnimationDelegate,
+UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *mainButton;
 @property (nonatomic, strong) UICollectionView *contentView;
@@ -128,6 +133,7 @@ static CGFloat const TTFloatCircledWidth = 60;
 @property (nonatomic, strong) CAShapeLayer *maskLayer;
 @property (nonatomic, assign) BOOL frameChangedBySelf;
 @property (nonatomic, assign) BOOL isContentViewTop;
+@property (nonatomic, assign) BOOL inExpandAnimation;
 
 @end
 
@@ -169,7 +175,7 @@ static CGFloat const TTFloatCircledWidth = 60;
         return YES;
     }
     if (self.expanded) {
-        return CGRectContainsPoint(self.contentView.bounds, point);
+        return CGRectContainsPoint(self.contentView.frame, point);
     }
     return [super pointInside:point withEvent:event];
 }
@@ -180,7 +186,6 @@ static CGFloat const TTFloatCircledWidth = 60;
     self.mainButton.frame = self.bounds;
 
     [self tt_setLayerBorder:1 color:[UIColor lightGrayColor] cornerRadius:self.width / 2 masksToBounds:NO];
-    [self.contentView tt_setLayerBorder:0 color:nil cornerRadius:self.width / 2 masksToBounds:YES];
     [self.mainButton tt_setLayerBorder:0 color:nil cornerRadius:self.width / 2 masksToBounds:YES];
 }
 
@@ -235,6 +240,7 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 - (void)expand:(BOOL)animated {
     _expanded = YES;
+    self.inExpandAnimation = YES;
     [self loadContentView];
     self.mainButton.selected = YES;
     [self expandWithMask:animated];
@@ -242,6 +248,7 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 - (void)shrink:(BOOL)animated {
     _expanded = NO;
+    self.inExpandAnimation = YES;
     self.mainButton.selected = NO;
     [self shrinkWithMask:animated];
 }
@@ -250,21 +257,22 @@ static CGFloat const TTFloatCircledWidth = 60;
     if (animated) {
         self.maskLayer.path = [self roundedPathWithRect:self.bounds];
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-        animation.toValue = (__bridge id)([self roundedPathWithRect:self.contentView.bounds]);
+        animation.toValue = (__bridge id)([self roundedPathWithRect:self.contentView.frame]);
         animation.duration = .25;
         animation.fillMode = kCAFillModeBoth;
         animation.removedOnCompletion = NO;
         animation.delegate = self;
         [self.maskLayer addAnimation:animation forKey:@"mask"];
     } else {
-        self.maskLayer.path = [self roundedPathWithRect:self.contentView.bounds];
+        self.maskLayer.path = [self roundedPathWithRect:self.contentView.frame];
+        self.inExpandAnimation = NO;
     }
 }
 
 - (void)shrinkWithMask:(BOOL)animated {
     [self.maskLayer removeAnimationForKey:@"mask"];
     if (animated) {
-        self.maskLayer.path = [self roundedPathWithRect:self.contentView.bounds];
+        self.maskLayer.path = [self roundedPathWithRect:self.contentView.frame];
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
         animation.toValue = (__bridge id _Nullable)([self roundedPathWithRect:self.bounds]);
         animation.duration = .25;
@@ -274,17 +282,19 @@ static CGFloat const TTFloatCircledWidth = 60;
         [self.maskLayer addAnimation:animation forKey:@"mask"];
     } else {
         self.maskLayer.path = [self roundedPathWithRect:self.bounds];
+        self.inExpandAnimation = NO;
     }
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     if (self.expanded) {
-        self.maskLayer.path = [self roundedPathWithRect:self.contentView.bounds];
+        self.maskLayer.path = [self roundedPathWithRect:self.contentView.frame];
     } else {
         self.maskLayer.path = [self roundedPathWithRect:self.bounds];
         [self.contentView removeFromSuperview];
         self.contentView = nil;
     }
+    self.inExpandAnimation = NO;
 }
 
 - (void)loadContentView {
@@ -316,22 +326,43 @@ static CGFloat const TTFloatCircledWidth = 60;
     [self.contentView layoutIfNeeded];
     CGSize contentSize = self.contentView.collectionViewLayout.collectionViewContentSize;
 
-    CGFloat x, y = CGRectGetMinY(self.frame);
+    CGFloat contentViewX, contentViewY = CGRectGetMinY(self.frame);
     if ([self isAtLeft]) {
-        x = 0;
+        contentViewX = 0;
     } else {
-        x = self.width - contentSize.width;
+        contentViewX = self.width - contentSize.width;
     }
-    if (y + contentSize.height > superviewHeight - areaBottom) {
-        y = self.width - contentSize.height;
+    // 下面显示不全，且上面的空间>下面的空间
+    if (CGRectGetMinY(self.frame) + contentSize.height > superviewHeight - areaBottom && CGRectGetMinY(self.frame) - areaTop > superviewHeight - areaBottom - CGRectGetMinY(self.frame)) {
         self.isContentViewTop = YES;
-        exclusionRect.origin.y = maxHeight - areaTop - self.width;
+        
+        exclusionRect.origin.y = contentSize.height + layout.minimumInteritemSpacing;
         layout.exclusionRect = exclusionRect;
+        [self.contentView layoutIfNeeded];
+        
+        CGSize newContentSize = layout.contentSize;
+        if (newContentSize.width != contentSize.width) {
+            contentSize.width = newContentSize.width;
+            if (![self isAtLeft]) {
+                contentViewX = self.width - contentSize.width;
+            }
+        }
+        if (newContentSize.height != contentSize.height) {
+            contentSize = newContentSize;
+            
+            exclusionRect.origin.y = contentSize.height + layout.minimumInteritemSpacing;
+            layout.exclusionRect = exclusionRect;
+        }
+        
+        contentViewY = MAX(self.width - contentSize.height - CGRectGetHeight(self.frame), areaTop - CGRectGetMinY(self.frame));
+        contentSize.height += layout.minimumInteritemSpacing + CGRectGetHeight(self.frame);
+        contentSize.height = MIN(contentSize.height, CGRectGetMaxY(self.frame) - areaTop);
     } else {
-        y = MAX(0, (self.width - contentSize.height) / 2);
         self.isContentViewTop = NO;
+        contentViewY = MAX(0, (self.width - contentSize.height) / 2);
+        contentSize.height = MIN(contentSize.height, superviewHeight - areaBottom - CGRectGetMinY(self.frame));
     }
-    self.contentView.frame = CGRectMake(x, y, contentSize.width, contentSize.height);
+    self.contentView.frame = CGRectMake(contentViewX, contentViewY, contentSize.width, contentSize.height);
 }
 
 - (CGPathRef)roundedPathWithRect:(CGRect)rect  {
@@ -344,6 +375,10 @@ static CGFloat const TTFloatCircledWidth = 60;
     return [UIBezierPath bezierPathWithRoundedRect:rect
                                  byRoundingCorners:UIRectCornerAllCorners
                                        cornerRadii:CGSizeMake(self.layer.cornerRadius, self.layer.cornerRadius)].CGPath;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return CGRectContainsPoint(self.bounds, [gestureRecognizer locationInView:self]);
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)pan {
@@ -386,9 +421,6 @@ static CGFloat const TTFloatCircledWidth = 60;
     y = TTNumberInRange(y, areaTop, CGRectGetHeight(self.superview.bounds) - self.width - areaBottom);
     return CGRectMake(x, y, self.width, self.width);
 }
-
-- (void)adjustContentViewFrame {
-    }
 
 - (void)setTitle:(id)title forState:(UIControlState)state {
     if ([title isKindOfClass:[NSString class]]) {

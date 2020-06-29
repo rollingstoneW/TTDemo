@@ -28,6 +28,7 @@
 #import "TTNetworkManager.h"
 #import "TTURLFactory.h"
 #import "TTAbstractPopupView.h"
+#import "LiveClassroomDebuggerManager.h"
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
@@ -75,7 +76,12 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
     [self testSafeMacros];
     
-    [self testToggleProperty];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"" ofType:@"txt"];
+    NSString *logString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSString *jsonString = [logString tt_prettyLogedStringToJsonString:NO];
+    NSLog(@"%@", jsonString);
+    
+//    [self testToggleProperty];
     
     NSDictionary *dict = @{@"1":@{@"2":@2}, @"2":@[@1]};
     NSLog(@"%@", [dict tt_dictionaryValueForKey:@"1" defaultValue:nil]);
@@ -86,7 +92,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self testCountdownTimeFormatter];
 //        [self testDateFormatter];
-//        [self testSingletonBenchmark];
+        [self testSingletonBenchmark];
 //        [self testSectorProgressView];
 //        [self testJSInvoke];
         
@@ -155,7 +161,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     //    });
     
     
-    TTLog(@"\nnavigationBarHeight -> %ld\ntabBarHeight -> %ld\nsafeAreaBottom -> %f", [UIDevice tt_navigationBarHeight], [UIDevice tt_tabBarHeight], kWindowSafeAreaBottom);
+    TTLog(@"\nnavigationBarHeight -> %.0f\ntabBarHeight -> %.0f\nsafeAreaBottom -> %.0f", [UIDevice tt_navigationBarHeight], [UIDevice tt_tabBarHeight], kWindowSafeAreaBottom);
 }
 
 
@@ -236,7 +242,9 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     void (^handler)(TTFloatCircledDebugAction *) = ^(TTFloatCircledDebugAction *action) {
         [self tt_showTextToast:action.title];
     };
-    NSArray *actions = @[[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
+    NSArray *actions = @[[TTFloatCircledDebugAction actionWithTitle:@"视图层级" handler:^(TTFloatCircledDebugAction * _Nonnull action) {
+        [LiveClassroomDebuggerManager showViewHierachyAlertView:[UIViewController tt_currentViewController].view];
+    }], [TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
                          [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
                          [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
                          [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
@@ -245,7 +253,40 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
                          [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
                          [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
                          [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]
-                         ];
+                         ,[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler],[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]
+                         ,[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler],[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
+                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]];
     TTFloatCircledDebugView *debugView = [[TTFloatCircledDebugView alloc] initWithTitleForNormal:@"菜单" expanded:@"收起" andDebugActions:actions];
     debugView.activeAreaInset = UIEdgeInsetsMake(kNavigationBarBottom + 5, 5, kTabBarHeight + 5, 5);
     [debugView showAddedInMainWindow];
@@ -332,9 +373,9 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
         for (NSInteger i = 0; i < classes.count; i++) {
             Class class = classes[i];
             dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-                for (NSInteger j = 0; j < 20000; j++) {
+//                for (NSInteger j = 0; j < 20000; j++) {
                     [class performSelector:selector];
-                }
+//                }
             });
         }
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
@@ -440,8 +481,8 @@ static CGFloat cellHeight = 20;
 - (void)sel5 {
     TTInputBar *inputBar = [[TTInputBar alloc] init];
     inputBar.text = @"这是一行文字\nlalal";
-    inputBar.maxVisibleLines = 3;
-    inputBar.maxNumOfChars = 50;
+//    inputBar.maxVisibleLines = 3;
+//    inputBar.maxNumOfChars = 50;
     [inputBar show];
     @weakify(self);
     inputBar.sendTextBlock = ^(TTInputBar *inputBar) {

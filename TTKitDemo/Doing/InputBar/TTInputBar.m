@@ -84,7 +84,9 @@ static const CGFloat TextViewRight = 87;
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     if (self.tapOutsideToDismiss && self.isShowing) {
-        return point.y <= 0;
+        if (!CGRectContainsPoint(self.textView.frame, point) && !CGRectContainsPoint(self.sendButton.frame, point)) {
+            return point.y <= 0;
+        }
     }
     return [super pointInside:point withEvent:event];
 }
@@ -171,7 +173,12 @@ static const CGFloat TextViewRight = 87;
     CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     UIViewAnimationCurve curve = [[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSTimeInterval duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    BOOL isShow = [notification.name isEqualToString:UIKeyboardWillShowNotification];
+//    BOOL isShow = [notification.name isEqualToString:UIKeyboardWillShowNotification];
+    BOOL isFloating = CGRectGetWidth(keyboardRect) < CGRectGetWidth([UIScreen mainScreen].bounds);
+    BOOL isShow = CGRectGetMinY(keyboardRect) < MAX(kScreenWidth, kScreenHeight);
+    if (isFloating) {
+        isShow = CGRectGetMinY(keyboardRect) < MAX(kScreenWidth, kScreenHeight) && !CGRectIsEmpty(keyboardRect);
+    }
     self.isShowing = isShow;
 
     [UIView animateWithDuration:duration
@@ -180,9 +187,17 @@ static const CGFloat TextViewRight = 87;
                      animations:^{
                          [UIView setAnimationCurve:curve];
                          if (isShow) {
-                             self.bottom = CGRectGetMinY(keyboardRect);
+                             if (isFloating) {
+                                self.bottom = MAX(kScreenWidth, kScreenHeight);
+                             } else {
+                                self.bottom = CGRectGetMinY(keyboardRect);
+                             }
                          } else {
-                             self.top = CGRectGetMinY(keyboardRect);
+                             if (isFloating) {
+                                self.top = MAX(kScreenWidth, kScreenHeight);
+                             } else {
+                                self.top = CGRectGetMinY(keyboardRect);
+                             }
                          }
                      } completion:^(BOOL finished) {
                          if (!isShow) {
@@ -220,13 +235,17 @@ static const CGFloat TextViewRight = 87;
 }
 
 - (void)observeKeyboard {
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(handleKeyboardNotifiction:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(handleKeyboardNotifiction:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleKeyboardNotifiction:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleKeyboardNotifiction:)
-                                                 name:UIKeyboardWillHideNotification
+                                                 name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
 }
 

@@ -48,6 +48,15 @@
 		D9820B9B22E352720047037E /* TTNetworkCancellable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9222E352720047037E /* TTNetworkCancellable.m */; };
 		D9820B9D22E352720047037E /* TTURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9820B9822E352720047037E /* TTURLFactory.m */; };
 		E7079D8B243990D000195436 /* NewFeatureGuide in Resources */ = {isa = PBXBuildFile; fileRef = E7079D8A243990D000195436 /* NewFeatureGuide */; };
+		E72E3E922499FB5C008D8107 /* TTAlertDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72E3E912499FB5C008D8107 /* TTAlertDemoViewController.m */; };
+		E72E3E952499FC9F008D8107 /* TTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E72E3E942499FC9F008D8107 /* TTAlertView.m */; };
+		E73E0A2224A711E800758295 /* LiveClassroomDebuggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E73E0A2124A711E800758295 /* LiveClassroomDebuggerManager.m */; };
+		E73E0A2524A715F200758295 /* LiveViewHerirachyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E73E0A2424A715F200758295 /* LiveViewHerirachyAlertView.m */; };
+		E73E0A2A24A7190D00758295 /* live_filter_arrow_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E73E0A2724A7190D00758295 /* live_filter_arrow_green@2x.png */; };
+		E73E0A2B24A7190D00758295 /* live_filter_arrow_green@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E73E0A2824A7190D00758295 /* live_filter_arrow_green@3x.png */; };
+		E73E0A3024A7194800758295 /* lc_liveclass_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E73E0A2E24A7194800758295 /* lc_liveclass_close@2x.png */; };
+		E73E0A3224A7197900758295 /* lc_liveclass_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E73E0A3124A7197900758295 /* lc_liveclass_close@3x.png */; };
+		E7ECCA9124A9F8CE00DAA334 /* logString.txt in Resources */ = {isa = PBXBuildFile; fileRef = E7ECCA9024A9F8CE00DAA334 /* logString.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +141,19 @@
 		D9820B9722E352720047037E /* TTNetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetworkTask.h; sourceTree = "<group>"; };
 		D9820B9822E352720047037E /* TTURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLFactory.m; sourceTree = "<group>"; };
 		E7079D8A243990D000195436 /* NewFeatureGuide */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NewFeatureGuide; sourceTree = "<group>"; };
+		E72E3E902499FB5C008D8107 /* TTAlertDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAlertDemoViewController.h; sourceTree = "<group>"; };
+		E72E3E912499FB5C008D8107 /* TTAlertDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAlertDemoViewController.m; sourceTree = "<group>"; };
+		E72E3E932499FC9F008D8107 /* TTAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAlertView.h; sourceTree = "<group>"; };
+		E72E3E942499FC9F008D8107 /* TTAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAlertView.m; sourceTree = "<group>"; };
+		E73E0A2024A711E700758295 /* LiveClassroomDebuggerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveClassroomDebuggerManager.h; sourceTree = "<group>"; };
+		E73E0A2124A711E800758295 /* LiveClassroomDebuggerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveClassroomDebuggerManager.m; sourceTree = "<group>"; };
+		E73E0A2324A715F200758295 /* LiveViewHerirachyAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveViewHerirachyAlertView.h; sourceTree = "<group>"; };
+		E73E0A2424A715F200758295 /* LiveViewHerirachyAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveViewHerirachyAlertView.m; sourceTree = "<group>"; };
+		E73E0A2724A7190D00758295 /* live_filter_arrow_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_filter_arrow_green@2x.png"; sourceTree = "<group>"; };
+		E73E0A2824A7190D00758295 /* live_filter_arrow_green@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_filter_arrow_green@3x.png"; sourceTree = "<group>"; };
+		E73E0A2E24A7194800758295 /* lc_liveclass_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lc_liveclass_close@2x.png"; sourceTree = "<group>"; };
+		E73E0A3124A7197900758295 /* lc_liveclass_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lc_liveclass_close@3x.png"; sourceTree = "<group>"; };
+		E7ECCA9024A9F8CE00DAA334 /* logString.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logString.txt; sourceTree = "<group>"; };
 		F21048E0759DF73BDE6E1BE4 /* Pods-TTKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-TTKitDemo/Pods-TTKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +267,8 @@
 				D932389422D0AB23000A0905 /* TTSystemAuthorizationViewController.m */,
 				D932388B22D0AB1F000A0905 /* TTToastViewController.h */,
 				D932388D22D0AB20000A0905 /* TTToastViewController.m */,
+				E72E3E902499FB5C008D8107 /* TTAlertDemoViewController.h */,
+				E72E3E912499FB5C008D8107 /* TTAlertDemoViewController.m */,
 				D932388522D0AB1D000A0905 /* TTXIBAdapterViewController.h */,
 				D932388E22D0AB20000A0905 /* TTXIBAdapterViewController.m */,
 				D932388C22D0AB20000A0905 /* TTXIBAdapterViewController.xib */,
@@ -264,6 +288,14 @@
 		D932389A22D0AB24000A0905 /* Doing */ = {
 			isa = PBXGroup;
 			children = (
+				E7ECCA9024A9F8CE00DAA334 /* logString.txt */,
+				E73E0A2024A711E700758295 /* LiveClassroomDebuggerManager.h */,
+				E73E0A2124A711E800758295 /* LiveClassroomDebuggerManager.m */,
+				E73E0A2324A715F200758295 /* LiveViewHerirachyAlertView.h */,
+				E73E0A2424A715F200758295 /* LiveViewHerirachyAlertView.m */,
+				E73E0A2624A7190D00758295 /* icons */,
+				E72E3E932499FC9F008D8107 /* TTAlertView.h */,
+				E72E3E942499FC9F008D8107 /* TTAlertView.m */,
 				E7079D8A243990D000195436 /* NewFeatureGuide */,
 				C131070822E01AEB007A945E /* TTFloatCircledDebugView.h */,
 				C131070922E01AEC007A945E /* TTFloatCircledDebugView.m */,
@@ -331,6 +363,17 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		E73E0A2624A7190D00758295 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				E73E0A2724A7190D00758295 /* live_filter_arrow_green@2x.png */,
+				E73E0A2824A7190D00758295 /* live_filter_arrow_green@3x.png */,
+				E73E0A2E24A7194800758295 /* lc_liveclass_close@2x.png */,
+				E73E0A3124A7197900758295 /* lc_liveclass_close@3x.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -392,7 +435,12 @@
 			files = (
 				D932387322D0AA7C000A0905 /* LaunchScreen.storyboard in Resources */,
 				D932387022D0AA7C000A0905 /* Assets.xcassets in Resources */,
+				E73E0A2B24A7190D00758295 /* live_filter_arrow_green@3x.png in Resources */,
+				E73E0A2A24A7190D00758295 /* live_filter_arrow_green@2x.png in Resources */,
 				D93238BE22D0AB28000A0905 /* TTXIBAdapterViewController.xib in Resources */,
+				E73E0A3024A7194800758295 /* lc_liveclass_close@2x.png in Resources */,
+				E7ECCA9124A9F8CE00DAA334 /* logString.txt in Resources */,
+				E73E0A3224A7197900758295 /* lc_liveclass_close@3x.png in Resources */,
 				E7079D8B243990D000195436 /* NewFeatureGuide in Resources */,
 				D93238C822D0AB28000A0905 /* TTCalculate.js in Resources */,
 			);
@@ -455,6 +503,7 @@
 				C190429922DD99A600FA20A7 /* TTAbstractProgressView.m in Sources */,
 				D932386B22D0AA7B000A0905 /* ViewController.m in Sources */,
 				D93238CD22D0AB28000A0905 /* TTShareData.m in Sources */,
+				E73E0A2524A715F200758295 /* LiveViewHerirachyAlertView.m in Sources */,
 				D9820B9B22E352720047037E /* TTNetworkCancellable.m in Sources */,
 				D93238DC22D0C94B000A0905 /* UIImageView+SDImageAutoSize.m in Sources */,
 				C131070A22E01AEC007A945E /* TTFloatCircledDebugView.m in Sources */,
@@ -465,7 +514,9 @@
 				C190429C22DDA59A00FA20A7 /* TTSectorProgressView.m in Sources */,
 				D9820B9922E352720047037E /* TTNetworkManager.m in Sources */,
 				D93238D022D0AB28000A0905 /* TTCycleBannerViewController.m in Sources */,
+				E73E0A2224A711E800758295 /* LiveClassroomDebuggerManager.m in Sources */,
 				D93238C022D0AB28000A0905 /* TTXIBAdapterViewController.m in Sources */,
+				E72E3E952499FC9F008D8107 /* TTAlertView.m in Sources */,
 				D932387622D0AA7C000A0905 /* main.m in Sources */,
 				D93238BA22D0AB28000A0905 /* TTFuncThrottleViewController.m in Sources */,
 				D93238BB22D0AB28000A0905 /* NetworkManager.m in Sources */,
@@ -473,6 +524,7 @@
 				D93238D122D0AB28000A0905 /* TTCategoryMenuBarOptionViewController.m in Sources */,
 				D93238C722D0AB28000A0905 /* TTInputBar.m in Sources */,
 				C145691922EAFB3900C4F560 /* SNLanguageManager.m in Sources */,
+				E72E3E922499FB5C008D8107 /* TTAlertDemoViewController.m in Sources */,
 				D932386822D0AA7B000A0905 /* AppDelegate.m in Sources */,
 				D93238CF22D0AB28000A0905 /* TTLayoutAdapter.m in Sources */,
 				D9820B9A22E352720047037E /* TTNetworkTask.m in Sources */,
