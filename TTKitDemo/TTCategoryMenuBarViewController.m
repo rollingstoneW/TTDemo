@@ -213,6 +213,12 @@
             option.title = [NSString stringWithFormat:@"分组%ld", i];
             option.extraData = @(i).stringValue;
             option.childAllowsMultipleSelection = i == 0;
+            // 左边右边各留15像素
+            option.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
+            // 元素间隔15像素
+            option.interitemSpacing = 15;
+            // 元素大小均分
+            option.itemSize = CGSizeMake((kScreenWidth - 15 * 5) / 4, 30);
             [optionArr addObject:option];
 
             NSMutableArray *childOptions = [NSMutableArray array];

@@ -47,7 +47,7 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 - (void)prepareLayout {
     [super prepareLayout];
-
+    
     CGFloat layoutWidth = self.preferredMaxWidth ?: CGRectGetWidth(self.collectionView.bounds);
     if (!layoutWidth) {
         return;
@@ -119,6 +119,113 @@ static CGFloat const TTFloatCircledWidth = 60;
 
 @end
 
+@interface TTDebugViewController : UIViewController
+
+@property (nonatomic, assign) UIInterfaceOrientation orientation;
+
+@end
+
+@implementation TTDebugViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+@end
+
+@interface TTFloatCircledDebugWindow : UIWindow
+
+@end
+
+@implementation TTFloatCircledDebugWindow
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    CGFloat shortSide = MIN(kScreenWidth, kScreenHeight);
+    CGFloat longSide = MAX(kScreenWidth, kScreenHeight);
+    self = [super initWithFrame:CGRectMake(0, 0, shortSide, longSide)];
+    if (self) {
+        self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+        self.windowLevel = UIWindowLevelStatusBar + 10;
+        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self handleRotate:nil];
+//        });
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRotate:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    }
+    return self;
+}
+
+- (void)handleRotate:(NSNotification *)note {
+    dispatch_block_t block = ^{
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        switch (orientation) {
+            case UIInterfaceOrientationPortrait:
+                self.transform = CGAffineTransformIdentity;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                self.transform = CGAffineTransformMakeRotation(M_PI);
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                self.transform = CGAffineTransformMakeRotation(M_PI_2);
+                break;
+            default:
+                break;
+        }
+        self.bounds = [UIScreen mainScreen].bounds;
+    };
+    if (note) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration animations:^{
+            block();
+        }];
+    } else {
+        block();
+    }
+}
+
+- (void)didAddSubview:(UIView *)subview {
+    [super didAddSubview:subview];
+    
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[TTFloatCircledDebugView class]] && idx != self.subviews.count - 1) {
+            [self bringSubviewToFront:obj];
+            *stop = YES;
+        }
+    }];
+}
+
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    for (UIView *subview in self.subviews) {
+//        if ([subview isDescendantOfView:self.rootViewController.view] ||
+//            [self.rootViewController.view isDescendantOfView:subview]) {
+//            continue;
+//        }
+//        if (subview.hidden || !subview.userInteractionEnabled || subview.alpha <= 0.01) {
+//            continue;
+//        }
+//        CGPoint subPoint = [self convertPoint:point toView:subview];
+//        if ([subview pointInside:subPoint withEvent:event]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+//}
+
+@end
+
+static TTFloatCircledDebugWindow *_debugWindow;
+
 @interface TTFloatCircledDebugView ()
 <UICollectionViewDelegate,
 UICollectionViewDataSource,
@@ -182,9 +289,9 @@ UIGestureRecognizerDelegate>
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
+    
     self.mainButton.frame = self.bounds;
-
+    
     [self tt_setLayerBorder:1 color:[UIColor lightGrayColor] cornerRadius:self.width / 2 masksToBounds:NO];
     [self.mainButton tt_setLayerBorder:0 color:nil cornerRadius:self.width / 2 masksToBounds:YES];
 }
@@ -203,21 +310,31 @@ UIGestureRecognizerDelegate>
 
 - (void)loadSubviews {
     self.layer.backgroundColor = [UIColor whiteColor].CGColor;
-
+    
     self.mainButton = [UIButton buttonWithTitle:nil font:[UIFont boldSystemFontOfSize:18] titleColor:kTTColor_33];
     self.mainButton.backgroundColor = [UIColor whiteColor];
     [self.mainButton addTarget:self action:@selector(toggleExpanded) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.mainButton];
-
+    
     self.maskLayer = [CAShapeLayer layer];
     self.maskLayer.path = [UIBezierPath bezierPathWithOvalInRect:(CGRect){.size = [self intrinsicContentSize]}].CGPath;
     self.layer.mask = self.maskLayer;
-
+    
     self.panGesture = [self tt_addPanGestureWithTarget:self selector:@selector(handlePan:)];
 }
 
 - (void)showAddedInMainWindow {
-    [self showAddedInView:kMainWindow animated:YES];
+    _debugWindow = [[TTFloatCircledDebugWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _debugWindow.hidden = NO;
+    [_debugWindow makeKeyAndVisible];
+    //    _debugWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TTFloatCircledDebugViewController alloc] init]];
+    //    _debugWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TTViewController alloc] init]];;
+    //    _debugWindow.rootViewController.title = @"123";
+    _debugWindow.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+    
+    [self showAddedInView:_debugWindow animated:NO];
+    //    [self showAddedInView:[LiveDebugUtils mainWindow] animated:YES];
+    //    [self showAddedInView:kMainWindow animated:YES];
 }
 
 - (void)showAddedInView:(UIView *)view animated:(BOOL)animated {
@@ -225,7 +342,7 @@ UIGestureRecognizerDelegate>
     [view addSubview:self];
     self.frameChangedBySelf = YES;
     self.frame = CGRectMake(self.activeAreaInset.left, self.activeAreaInset.top, TTFloatCircledWidth, TTFloatCircledWidth);
-
+    
     dispatch_block_t animation = ^{
         self.alpha = 1;
     };
@@ -261,6 +378,7 @@ UIGestureRecognizerDelegate>
         animation.duration = .25;
         animation.fillMode = kCAFillModeBoth;
         animation.removedOnCompletion = NO;
+        //TODO:weizhenning weakproxy
         animation.delegate = self;
         [self.maskLayer addAnimation:animation forKey:@"mask"];
     } else {
@@ -278,6 +396,7 @@ UIGestureRecognizerDelegate>
         animation.duration = .25;
         animation.fillMode = kCAFillModeBoth;
         animation.removedOnCompletion = NO;
+        //TODO:weizhenning weakproxy
         animation.delegate = self;
         [self.maskLayer addAnimation:animation forKey:@"mask"];
     } else {
@@ -303,7 +422,7 @@ UIGestureRecognizerDelegate>
     CGFloat areaTop = self.activeAreaInset.top, areaBottom = self.activeAreaInset.bottom;
     CGFloat maxWidth = self.preferredMaxExpandedSize.width ?: superviewWidth - areaLeft - areaRight;
     CGFloat maxHeight = self.preferredMaxExpandedSize.height ?: superviewHeight - areaTop - areaBottom;
-
+    
     TTFloatCircledDebugViewLayout *layout = [[TTFloatCircledDebugViewLayout alloc] init];
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
@@ -314,22 +433,24 @@ UIGestureRecognizerDelegate>
         exclusionRect.origin.x = maxWidth - self.width;
     }
     layout.exclusionRect = exclusionRect;
-
+    
     self.contentView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.contentView.delegate = self;
     self.contentView.dataSource = self;
     self.contentView.backgroundColor = [UIColor lightGrayColor];
     [self.contentView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [self insertSubview:self.contentView belowSubview:self.mainButton];
-
+    
     self.contentView.frame = CGRectMake(0, 0, maxWidth, maxHeight);
     [self.contentView layoutIfNeeded];
     CGSize contentSize = self.contentView.collectionViewLayout.collectionViewContentSize;
-
     CGFloat contentViewX, contentViewY = CGRectGetMinY(self.frame);
     if ([self isAtLeft]) {
         contentViewX = 0;
     } else {
+        if (contentSize.height <= self.width && contentSize.width + self.width <= maxWidth) {
+            contentSize.width += self.width;
+        }
         contentViewX = self.width - contentSize.width;
     }
     // 下面显示不全，且上面的空间>下面的空间
@@ -359,8 +480,12 @@ UIGestureRecognizerDelegate>
         contentSize.height = MIN(contentSize.height, CGRectGetMaxY(self.frame) - areaTop);
     } else {
         self.isContentViewTop = NO;
-        contentViewY = MAX(0, (self.width - contentSize.height) / 2);
         contentSize.height = MIN(contentSize.height, superviewHeight - areaBottom - CGRectGetMinY(self.frame));
+        contentViewY = MAX(0, (self.width - contentSize.height) / 2);
+    }
+    if (contentSize.height < CGRectGetHeight(self.frame)) {
+        contentSize.height = CGRectGetHeight(self.frame);
+        contentViewY = 0;
     }
     self.contentView.frame = CGRectMake(contentViewX, contentViewY, contentSize.width, contentSize.height);
 }

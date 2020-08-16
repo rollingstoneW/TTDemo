@@ -3,7 +3,7 @@
 //  TTKit
 //
 //  Created by rollingstoneW on 2019/7/8.
-//  Copyright © 2019 weizhenning. All rights reserved.
+//  Copyright © 2019 rollingstoneW. All rights reserved.
 //
 
 #import "TTCategoryMenuBarOptionView2Controller.h"

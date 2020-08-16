@@ -226,7 +226,7 @@ static const CGFloat TextViewRight = 87;
 //    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text ?: @"" attributes:attributes];
 //    self.textView.attributedText = attributedText;
 //    [self.textView scrollRangeToVisible:self.textView.selectedRange];
-    [self.textView.undoManager removeAllActions];
+//    [self.textView.undoManager removeAllActions];
 }
 
 - (void)setupLengthLabel {

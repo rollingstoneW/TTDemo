@@ -10,6 +10,7 @@
 #import "TabBarController.h"
 #import <TTRabbit/TTNavigationBar.h>
 #import <TTSafeKit.h>
+#import <objc/runtime.h>
 
 @interface AppDelegate ()
 
@@ -17,14 +18,12 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     window.rootViewController = [TabBarController new];
     [window makeKeyAndVisible];
     self.window = window;
-    
+
     [[TTNavigationBar appearance] setBackImage:[UIImage imageNamed:@"back"]];
     return YES;
 }

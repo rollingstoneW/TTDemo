@@ -8,7 +8,7 @@
 
 #import "FirstViewController.h"
 #import "TTTabBarControllerChildProtocol.h"
-#import "TTCustomNavigationBarController.h"
+#import "TTNavigationBarDemoViewController.h"
 #import "TTMultiSelectionAlertView.h"
 #import "TTInputBar.h"
 #import "TTToastViewController.h"
@@ -24,11 +24,13 @@
 #import "TTChangeAppIconViewController.h"
 #import <MJRefresh.h>
 #import "TTSectorProgressView.h"
-#import "TTFloatCircledDebugView.h"
 #import "TTNetworkManager.h"
 #import "TTURLFactory.h"
-#import "TTAbstractPopupView.h"
-#import "LiveClassroomDebuggerManager.h"
+#import "TTAlertDemoViewController.h"
+#import <TTDebugTool/TTDebugManager.h>
+#import <TTDebugTool/TTDebugLogger.h>
+
+#define TTLog(format, ...) [TTDebugLogger log:format, __VA_ARGS__];
 
 extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
@@ -56,6 +58,23 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 
 @end
 
+@implementation LandscapeViewController : TTViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor redColor];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self goback];
+}
+
+@end
+
 @interface FirstViewController () <TTTabBarControllerChildProtocol, UITextFieldDelegate>
 
 @property (nonatomic, strong) TTLocalJSInvocation *JSInvocation;
@@ -63,14 +82,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 @property (nonatomic, strong) NSArray *testSingletonClasses;
 
 @property (nonatomic, assign) BOOL isBackgroundRed;
-
-@end
-
-@implementation TestLabel: UILabel
-
-+ (Class)layerClass {
-    return [CAShapeLayer class];
-}
+@property (nonatomic, strong) NSString *aText;
 
 @end
 
@@ -82,6 +94,7 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     self = [super init];
     if (self) {
         self.tt_attributedTitle = [[NSAttributedString alloc] initWithString:@"首页" attributes:@{NSForegroundColorAttributeName:kTTColor_Red,NSFontAttributeName:[kTTFont_18 fontWithBold]}];
+        
     }
     return self;
 }
@@ -92,9 +105,32 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
 //    [self testButtonThrottle];
     
 //    [self testHTML2AttributedString];
+    
+    UIPanGestureRecognizer *pan = [self.view tt_addPanGestureWithBlock:^(UIPanGestureRecognizer * _Nonnull pan) {
+        NSLog(@"%@", pan);
+    }];
+    pan.delaysTouchesBegan = YES;
 
-    //TODO:weizhenning
+    //TODO:rollingstoneW
     [self testURLComponents];
+    
+//    UILabel *redBlock = [UILabel labelWithText:@"一行字" font:kTTFont_15 textColor:kTTColor_33];
+//    redBlock.size = CGSizeMake(200, 100);
+////    redBlock.center = self.view.center;
+//    redBlock.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:redBlock];
+//    redBlock.layer.anchorPoint = CGPointMake(0, 0);
+//    redBlock.origin = CGPointZero;
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [UIView animateWithDuration:1 animations:^{
+//            redBlock.transform = CGAffineTransformMakeRotation(M_PI_2);
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:1 animations:^{
+//                redBlock.transform = CGAffineTransformMakeRotation(-M_PI_2);
+//            }];
+//        }];
+//    });
     
     @weakify(self);
     [self setupRefreshHeaderWithBlock:^{
@@ -108,35 +144,45 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     
 //    [self testPerformSelector];
     
-    [self testDebugView];
     
     [self testSafeMacros];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"" ofType:@"txt"];
-    NSString *logString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSString *jsonString = [logString tt_prettyLogedStringToJsonString:NO];
-    NSLog(@"%@", jsonString);
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"logString" ofType:@"txt"];
+//    NSString *logString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    NSString *convertString = [logString tt_prettyLogedStringToJsonString:YES];
+//    NSLog(@"%@", convertString);
+//
+//    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"jsonString" ofType:@"txt"];
+//    NSString *jsonString = [[NSString alloc] initWithContentsOfFile:jsonPath encoding:NSUTF8StringEncoding error:nil];
+//
+//    NSDictionary *data = [convertString jsonValueDecoded];
     
 //    [self testToggleProperty];
+//    NSString *hanzi = @"\U8c22\U8c22\U8001\U5e08\Uff5e";
+//    hanzi = [hanzi stringByURLDecode];
     
     [self testDictionaryMerge];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self testCountdownTimeFormatter];
-//        [self testDateFormatter];
-        [self testSingletonBenchmark];
+        [self testDateFormatter];
+//        [self testSingletonBenchmark];
 //        [self testSectorProgressView];
 //        [self testJSInvoke];
-        
-        
-        
     });
 //    [self testBenchmark];
     
 //    [self testEdgeInsetLabel];
     
-    //TODO:weizhenning
+    //TODO:rollingstoneW
     [self testBlurText];
+    
+    [self testConcurrentQueue];
+    
+    //TODO:rollingstoneW 日志测试
+    [[NSTimer scheduledTimerWithTimeInterval:0.1 block:^(NSTimer * _Nonnull timer) {
+        TTLog(@"%@", [NSDate date]);
+    } repeats:YES] fire];
     
 //    NSString *url = @"http://www.baidu.com?url=http://www.google.com&vc=1";
 //    NSURL *URL = [NSURL URLWithString:url];
@@ -242,6 +288,21 @@ dispatch_queue_t queue;
     };
     for (NSInteger i = 0; i < 20; i++) {
         block(i);
+    }
+}
+
+- (void)testConcurrentQueue {
+    dispatch_queue_t queue = dispatch_queue_create("com.aaa.sstest", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_queue_set_specific(queue, @"111", @"customQueque", NULL);
+    for (int i = 0; i<1000; i++) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//            self.aText = [NSString stringWithFormat:@"asdasdasdsadadadadd"];
+            self.aText = [NSString stringWithFormat:@"adf"];
+//            a ++;
+            //判断是否是主队列
+//            void *value = dispatch_get_specific(@"111");//返回与当前分派队列关联的键的值。
+//            NSLog(@"a=%d queue: %@ 线程%@", a ,value ,[NSThread currentThread]);
+        });
     }
 }
 
@@ -357,57 +418,7 @@ dispatch_queue_t queue;
 }
 
 - (void)testDebugView {
-    void (^handler)(TTFloatCircledDebugAction *) = ^(TTFloatCircledDebugAction *action) {
-        [self tt_showTextToast:action.title];
-    };
-    NSArray *actions = @[[TTFloatCircledDebugAction actionWithTitle:@"视图层级" handler:^(TTFloatCircledDebugAction * _Nonnull action) {
-        [LiveClassroomDebuggerManager showViewHierachyAlertView:[UIViewController tt_currentViewController].view];
-    }], [TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]
-                         ,[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler],[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]
-                         ,[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler],[TTFloatCircledDebugAction actionWithTitle:@"选项1" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项2" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项3" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项4" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项5" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项6" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项7" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项啦啦来a啦啦啦啦啦啦啦" handler:handler],
-                         [TTFloatCircledDebugAction actionWithTitle:@"选项8" handler:handler]];
-    TTFloatCircledDebugView *debugView = [[TTFloatCircledDebugView alloc] initWithTitleForNormal:@"菜单" expanded:@"收起" andDebugActions:actions];
-    debugView.activeAreaInset = UIEdgeInsetsMake(kNavigationBarBottom + 5, 5, kTabBarHeight + 5, 5);
-    [debugView showAddedInMainWindow];
+    [[TTDebugManager sharedManager] showFloatDebugView];
 }
 
 - (void)testCountdownTimeFormatter {
@@ -483,35 +494,31 @@ dispatch_queue_t queue;
     TTLog(@"%@", [NSDate tt_nowStringFromTimestampWithMsFormat]);
     TTLog(@"%@", [NSDate tt_nowStringFromTimestampWithoutSecondFormat]);
     
+//    CFTimeInterval begin = CACurrentMediaTime();
+//    for (NSInteger i = 0; i < 1000; i++) {
+//        [[NSDateFormatter tt_formatterWithFormat:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
+//    }
+//    TTLog(@"cache time : %f", CACurrentMediaTime() - begin);
+//    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+//
+//    begin = CACurrentMediaTime();
+//    [[NSDateFormatter tt_formatterWithFormatAtomicly:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
+//    for (NSInteger i = 0; i < 1000; i++) {
+//        [[NSDateFormatter tt_formatterWithFormatAtomicly:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
+//    }
+//    TTLog(@"cache atomicly time : %f", CACurrentMediaTime() - begin);
     
-    NSString *dateString = [[NSDateFormatter tt_formatterWithFormat:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
-    CFTimeInterval begin = CACurrentMediaTime();
-    for (NSInteger i = 0; i < 1000; i++) {
-        [[NSDateFormatter tt_formatterWithFormat:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
-    }
-    TTLog(@"cache time : %f", CACurrentMediaTime() - begin);
-    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-    
-    begin = CACurrentMediaTime();
-    [[NSDateFormatter tt_formatterWithFormatAtomicly:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
-    for (NSInteger i = 0; i < 1000; i++) {
-        [[NSDateFormatter tt_formatterWithFormatAtomicly:@"yyyy-MM-dd HH:mm:ss"] stringFromDate:[NSDate date]];
-    }
-    TTLog(@"cache atomicly time : %f", CACurrentMediaTime() - begin);
-    
-    begin = CACurrentMediaTime();
-    for (NSInteger i = 0; i < 1000; i++) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormatter.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-        [dateFormatter stringFromDate:[NSDate date]];
-    }
-    TTLog(@"no cache time : %f", CACurrentMediaTime() - begin);
-    
-    TTLog(@"%@", dateString);
+//    begin = CACurrentMediaTime();
+//    for (NSInteger i = 0; i < 1000; i++) {
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+//        dateFormatter.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//        dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+//        [dateFormatter stringFromDate:[NSDate date]];
+//    }
+//    TTLog(@"no cache time : %f", CACurrentMediaTime() - begin);
 }
 
 - (void)testJSInvoke {
@@ -573,6 +580,7 @@ dispatch_queue_t queue;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         progressView.progress = 0;
     });
+    NSLog(@"%s", __func__);
 }
 
 - (CGPathRef)arcWithRadius:(CGFloat)radius Degrees:(double)degrees {
@@ -594,7 +602,7 @@ dispatch_queue_t queue;
 - (void)loadTableView {
     [super loadTableView];
     
-    [self.dataArray addObjectsFromArray:@[@{@"title":@"自定义导航栏",@"sel":@"sel1"},@{@"title":@"渐变导航栏",@"sel":@"sel2"},@{@"title":@"大字标题导航栏",@"sel":@"sel3"},@{@"title":@"多选弹窗",@"sel":@"sel4"}, @{@"title":@"多行输入框(doing)",@"sel":@"sel5"},@{@"title":@"toast",@"sel":@"sel6"},@{@"title":@"容错处理",@"sel":@"sel7"}, @{@"title":@"轮播图", @"sel":@"sel8"}, @{@"title":@"函数节流", @"sel":@"sel9"}, @{@"title":@"xib适配(doing)", @"sel":@"sel10"}, @{@"title":@"请求系统各种权限",@"sel":@"sel11"}, @{@"title":@"多级菜单",@"sel":@"sel12"},@{@"title":@"更换icon图标(doing)",@"sel":@"sel13"}]];
+    [self.dataArray addObjectsFromArray:@[@{@"title":@"调试工具",@"sel":@"testDebugView"}, @{@"title":@"导航栏",@"sel":@"sel1"},@{@"title":@"弹窗",@"sel":@"sel4"}, @{@"title":@"多行输入框(doing)",@"sel":@"sel5"},@{@"title":@"toast",@"sel":@"sel6"},@{@"title":@"容错处理",@"sel":@"sel7"}, @{@"title":@"轮播图", @"sel":@"sel8"}, @{@"title":@"函数节流", @"sel":@"sel9"}, @{@"title":@"xib适配(doing)", @"sel":@"sel10"}, @{@"title":@"请求系统各种权限",@"sel":@"sel11"}, @{@"title":@"多级菜单",@"sel":@"sel12"},@{@"title":@"更换icon图标(doing)",@"sel":@"sel13"}]];
     
     [UITableViewCell tt_registInTableView:self.tableView];
 }
@@ -626,30 +634,20 @@ static CGFloat cellHeight = 20;
 }
 
 - (void)sel1 {
-    TTCustomNavigationBarController *vc = [[TTCustomNavigationBarController alloc] init];
-    vc.style = 1;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)sel2 {
-    TTCustomNavigationBarController *vc = [[TTCustomNavigationBarController alloc] init];
-    vc.style = 2;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)sel3 {
-    TTCustomNavigationBarController *vc = [[TTCustomNavigationBarController alloc] init];
-    vc.style = 3;
+    TTNavigationBarDemoViewController *vc = [[TTNavigationBarDemoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)sel4 {
-    TTMultiSelectionAlertView *alert = [[TTMultiSelectionAlertView alloc] initWithSelections:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"啦啦啦"] title:@"请选择" hideButton:NO];
-    [alert showInAppDelegateWindow];
-    alert.allowsMultipleSelection = NO;
-    alert.didSelectItemBlock = ^(NSArray *selections, NSArray *indexes) {
-        TTLog(@"%@", selections);
-    };
+    TTAlertDemoViewController *vc = [[TTAlertDemoViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+//    TTMultiSelectionAlertView *alert = [[TTMultiSelectionAlertView alloc] initWithSelections:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"啦啦啦"] title:@"请选择" hideButton:NO];
+//    [alert showInAppDelegateWindow];
+//    alert.allowsMultipleSelection = NO;
+//    alert.didSelectItemBlock = ^(NSArray *selections, NSArray *indexes) {
+//        TTLog(@"%@", selections);
+//    };
 }
 
 - (void)sel5 {
@@ -750,26 +748,25 @@ static CGFloat cellHeight = 20;
 }
 
 - (void)testBenchmark {
-//    uint64_t time1 = dispatch_benchmark(1000, ^{
-//        NSTimeInterval interval = CACurrentMediaTime();
-//        interval;
-//    });
-//    TTLog(@"%llu", time1);
-//    uint64_t time2 = dispatch_benchmark(1000, ^{
-//        NSTimeInterval interval = CFAbsoluteTimeGetCurrent();
-//        interval;
-//    });
-//    TTLog(@"%llu", time2);
-//    uint64_t time3 = dispatch_benchmark(1000, ^{
-//        NSTimeInterval interval = [[NSDate date] timeIntervalSinceReferenceDate];
-//        interval;
-//    });
-//    TTLog(@"%llu", time3);
-//    uint64_t time4 = dispatch_benchmark(1000, ^{
-//        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-//        interval;
-//    });
-//    TTLog(@"%llu", time4);
+    uint64_t time1 = dispatch_benchmark(1000, ^{
+        CACurrentMediaTime();
+    });
+    TTLog(@"%llu", time1);
+    uint64_t time2 = dispatch_benchmark(1000, ^{
+        CFAbsoluteTimeGetCurrent();
+    });
+    TTLog(@"%llu", time2);
+    NSDate *date = [NSDate date];
+    uint64_t time3 = dispatch_benchmark(1000, ^{
+//        [[NSDate date] timeIntervalSinceReferenceDate];
+        [date timeIntervalSinceReferenceDate];
+    });
+    TTLog(@"%llu", time3);
+    uint64_t time4 = dispatch_benchmark(1000, ^{
+//        [[NSDate date] timeIntervalSince1970];
+        [date timeIntervalSince1970];
+    });
+    TTLog(@"%llu", time4);
 }
 
 - (void)testUrlString {

@@ -27,7 +27,7 @@
     item.selectedIcon = [[UIImage imageNamed:@"icon_arrow_down"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
     item.allowsReset = YES;
     item.childAllowsMultipleSelection = YES;
-    item.shouldAlignmentLeft = YES;
+//    item.shouldAlignmentLeft = YES;
 
     NSMutableArray *optionArr = [NSMutableArray array];
     for (NSInteger i = 0; i < 5; i++) {
