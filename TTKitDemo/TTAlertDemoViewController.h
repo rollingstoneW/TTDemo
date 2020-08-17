@@ -2,7 +2,7 @@
 //  TTAlertDemoViewController.h
 //  TTKitDemo
 //
-//  Created by ZYB on 2020/4/5.
+//  Created by rollingstoneW on 2020/4/5.
 //  Copyright © 2020 TTKit. All rights reserved.
 //
 

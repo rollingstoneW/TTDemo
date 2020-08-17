@@ -180,9 +180,9 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
     [self testConcurrentQueue];
     
     //TODO:rollingstoneW 日志测试
-    [[NSTimer scheduledTimerWithTimeInterval:0.1 block:^(NSTimer * _Nonnull timer) {
-        TTLog(@"%@", [NSDate date]);
-    } repeats:YES] fire];
+//    [[NSTimer scheduledTimerWithTimeInterval:0.1 block:^(NSTimer * _Nonnull timer) {
+//        TTLog(@"%@", [NSDate date]);
+//    } repeats:YES] fire];
     
 //    NSString *url = @"http://www.baidu.com?url=http://www.google.com&vc=1";
 //    NSURL *URL = [NSURL URLWithString:url];
@@ -670,15 +670,6 @@ static CGFloat cellHeight = 20;
 
 - (void)sel6 {
     [self.navigationController pushViewController:[TTToastViewController new] animated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIView *redView = [UIView viewWithColor:kTTColor_Red];
-        redView.frame = [UIScreen mainScreen].bounds;
-        [redView tt_addTapGestureWithBlock:^(UITapGestureRecognizer *tap) {
-            [self.navigationController setNavigationBarHidden:NO animated:NO];
-            [redView removeFromSuperview];
-        }];
-        [self.view addSubview:redView];
-    });
 }
 
 - (void)sel7 {
@@ -729,7 +720,7 @@ static CGFloat cellHeight = 20;
 }
 
 - (void)testButtonThrottle {
-    UIButton *button = [UIButton buttonWithTitle:@"按钮时间阈值" font:nil titleColor:kTTColor_Black];
+    UIButton *button = [UIButton buttonWithTitle:@"按钮时间阈值" font:@"" titleColor:kTTColor_Black];
     [button addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
     button.tt_threshold = 1;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];

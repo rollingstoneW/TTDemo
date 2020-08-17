@@ -11,6 +11,9 @@
 #import <TTRabbit/TTNavigationBar.h>
 #import <TTSafeKit.h>
 #import <objc/runtime.h>
+#import <TTDebugTool/TTDebugManager.h>
+#import <TTDebugTool/TTDebugLogAction.h>
+#import <TTDebugTool/TTDebugLogPagesModule.h>
 
 @interface AppDelegate ()
 
@@ -23,6 +26,10 @@
     window.rootViewController = [TabBarController new];
     [window makeKeyAndVisible];
     self.window = window;
+    
+    [TTDebugManager sharedManager].enabled = YES;
+    [TTDebugLogAction sharedAction].showInXcodeConsole = YES;
+    [TTDebugLogPagesModule sharedModule].baseViewControllerClassName = @"TTViewController";
 
     [[TTNavigationBar appearance] setBackImage:[UIImage imageNamed:@"back"]];
     return YES;
